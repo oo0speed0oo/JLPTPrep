@@ -1,24 +1,9 @@
-//
-//  ContentView.swift
-//  Quiz_Marker_IOS
-//
-//  Created by Michael Placido on 2/9/26.
-//
-
 import SwiftUI
 
+// This file is currently empty because your app starts at MainMenuView.swift
+// You can delete this file if you want to clean up your project.
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        MainMenuView()
     }
-}
-
-#Preview {
-    ContentView()
 }
