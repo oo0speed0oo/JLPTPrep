@@ -14,44 +14,33 @@ class QuizManager {
     }
     
     func loadQuestions(filename: String, units: [String], chapters: [String], limit: Int) {
-        // 1. Clean filename
         let cleanName = filename.replacingOccurrences(of: ".csv", with: "")
         
         guard let path = Bundle.main.path(forResource: cleanName, ofType: "csv") else {
-            print("❌ Error: CSV file \(filename) not found in bundle.")
+            print("❌ Error: CSV file \(filename) not found.")
             return
         }
         
         var loaded: [Question] = []
         
         do {
-            // 2. Use .utf8 explicitly
+            // Use the encoding that was working for you previously
             let content = try String(contentsOfFile: path, encoding: .utf8)
             
-            // 3. Handle both Windows (\r\n) and Unix (\n) line endings
             let lines = content.components(separatedBy: .newlines)
                 .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
             
-            guard lines.count > 1 else {
-                print("⚠️ Warning: CSV is empty or only contains header.")
-                return
-            }
-            
-            for (index, line) in lines.dropFirst().enumerated() {
-                // 4. Robust comma splitting
-                // If your CSV has commas INSIDE quotes, this simple split will fail.
-                let cols = line.components(separatedBy: ",")
+            for line in lines.dropFirst() {
+                // Use safeSplit to handle commas inside Japanese text correctly
+                let cols = CSVParser.safeSplit(line: line)
                 
-                // Allow for rows that might have extra empty columns at the end
-                if cols.count < 9 {
-                    print("⚠️ Skipping line \(index + 2): expected 9 columns, found \(cols.count)")
-                    continue
-                }
+                // Ensure there are enough columns to prevent index out of range
+                if cols.count < 9 { continue }
                 
                 let qUnit = cols[1].trimmingCharacters(in: .whitespacesAndNewlines)
                 let qChap = cols[2].trimmingCharacters(in: .whitespacesAndNewlines)
                 
-                // 5. Case-Insensitive / Trimmed matching
+                // Filtering logic
                 let unitMatch = units.isEmpty || units.contains { $0.trimmed == qUnit }
                 let chapMatch = chapters.isEmpty || chapters.contains { $0.trimmed == qChap }
                 
@@ -73,22 +62,20 @@ class QuizManager {
                 }
             }
             
-            print("✅ Successfully filtered \(loaded.count) questions.")
+            print("✅ Loaded \(loaded.count) questions.")
             
-            // 6. Final safety check: if loaded is empty, the screen will hang.
-            // We should ensure we don't crash if units/chapters matched nothing.
-            if loaded.isEmpty {
-                print("⚠️ No questions matched the selected Units/Chapters.")
+            DispatchQueue.main.async {
+                let shuffled = loaded.shuffled()
+                // Safely handle the limit
+                let actualLimit = limit > 0 ? min(limit, shuffled.count) : shuffled.count
+                self.questions = Array(shuffled.prefix(actualLimit))
+                self.currentIndex = 0
+                self.score = 0
+                self.isFinished = false
             }
             
-            let shuffled = loaded.shuffled()
-            self.questions = Array(shuffled.prefix(limit))
-            self.currentIndex = 0
-            self.score = 0
-            self.isFinished = false
-            
         } catch {
-            print("❌ File Read Error: \(error.localizedDescription)")
+            print("❌ Read Error: \(error.localizedDescription)")
         }
     }
     
@@ -108,7 +95,6 @@ class QuizManager {
     }
 }
 
-// Helper to make matching easier
 extension String {
     var trimmed: String {
         self.trimmingCharacters(in: .whitespacesAndNewlines)

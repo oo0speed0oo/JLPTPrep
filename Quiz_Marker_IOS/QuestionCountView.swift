@@ -8,35 +8,80 @@ struct QuestionCountView: View {
 
     @State private var totalAvailable: Int = 0
     @State private var selectedAmount: Int = 1
+    
+    @State private var amountString: String = "1"
+    @FocusState private var isInputActive: Bool
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
             Text("How many questions?")
                 .font(.headline)
             
             if totalAvailable == 0 {
-                Text("Searching for matching questions...")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                VStack {
+                    ProgressView()
+                    Text("Searching for matching questions...")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             } else {
-                Text("\(totalAvailable) questions available")
-                    .font(.subheadline)
-                    .foregroundColor(.green)
+                VStack(spacing: 10) {
+                    Text("\(totalAvailable) questions available")
+                        .font(.subheadline)
+                        .foregroundColor(.green)
+                    
+                    HStack {
+                        Text("Enter Amount:")
+                        
+                        TextField("", text: $amountString)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.center)
+                            .padding(10)
+                            .frame(width: 80)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(8)
+                            .focused($isInputActive)
+                            .onChange(of: amountString) { oldValue, newValue in
+                                validateInput(newValue)
+                            }
+                    }
+                    .font(.title3)
+                }
             }
             
-            Stepper("\(selectedAmount) Questions", value: $selectedAmount, in: 1...max(1, totalAvailable))
-                .padding()
-                .disabled(totalAvailable == 0)
-
             Button("Start Quiz") {
-                // FIXED: Added missing argument labels
                 path.append(QuizRoute.activeQuiz(file: file, units: units, chapters: chapters, limit: selectedAmount))
             }
             .buttonStyle(.borderedProminent)
-            .disabled(totalAvailable == 0)
+            .controlSize(.large)
+            .disabled(totalAvailable == 0 || selectedAmount < 1)
         }
         .navigationTitle("Questions")
         .onAppear(perform: countPossibleQuestions)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isInputActive = false
+                }
+            }
+        }
+    }
+
+    func validateInput(_ value: String) {
+        let filtered = value.filter { "0123456789".contains($0) }
+        if let currentInt = Int(filtered) {
+            if currentInt > totalAvailable {
+                selectedAmount = totalAvailable
+                amountString = "\(totalAvailable)"
+            } else {
+                selectedAmount = currentInt
+                amountString = filtered
+            }
+        } else if filtered.isEmpty {
+            selectedAmount = 0
+            amountString = ""
+        }
     }
 
     func countPossibleQuestions() {
@@ -44,25 +89,55 @@ struct QuestionCountView: View {
         guard let filepath = Bundle.main.path(forResource: resourceName, ofType: "csv"),
               let content = try? String(contentsOfFile: filepath, encoding: .utf8) else { return }
         
-        // Use .newlines to handle different CSV formats
-        let lines = content.components(separatedBy: .newlines).dropFirst()
-        var count = 0
+        let allLines = content.components(separatedBy: .newlines)
+            .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
         
-        for line in lines {
-            let cols = line.components(separatedBy: ",")
-            if cols.count > 2 {
-                // Robust trimming including newlines
-                let u = cols[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                let c = cols[2].trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let headerLine = allLines.first else { return }
+        let headers = CSVParser.safeSplit(line: headerLine)
+        
+        // 1. Find correct column indexes from the header
+        let unitIndex = headers.firstIndex { $0.lowercased().contains("unit") }
+        let chapterIndex = headers.firstIndex { $0.lowercased().contains("chapter") } ?? 1
+            
+        var count = 0
+        let dataLines = allLines.dropFirst()
+        
+        for line in dataLines {
+            let cols = CSVParser.safeSplit(line: line)
+            
+            if cols.count > chapterIndex {
+                let c = cols[chapterIndex].trimmingCharacters(in: .whitespacesAndNewlines)
                 
-                if units.contains(u) && chapters.contains(c) {
+                // 2. LOGIC FIX: Check if Chapter matches
+                let matchesChapter = chapters.contains(c)
+                
+                // 3. LOGIC FIX: Check Unit ONLY if the units array isn't empty
+                var matchesUnit = true
+                if !units.isEmpty, let uIdx = unitIndex, cols.count > uIdx {
+                    let u = cols[uIdx].trimmingCharacters(in: .whitespacesAndNewlines)
+                    matchesUnit = units.contains(u)
+                } else if !units.isEmpty && unitIndex == nil {
+                    // Safety: user picked units but file has no unit column
+                    matchesUnit = false
+                }
+
+                if matchesUnit && matchesChapter {
                     count += 1
                 }
             }
         }
         
-        self.totalAvailable = count
-        // Default to showing all questions, but at least 1
-        self.selectedAmount = max(1, count)
+        DispatchQueue.main.async {
+            // Safety: If somehow 0 are found, set to 0 but allow the UI to move on
+            // or show a "No Questions" state.
+            self.totalAvailable = count
+            self.selectedAmount = count
+            self.amountString = "\(count)"
+            
+            // If the file is broken and count is really 0, we shouldn't hang
+            if count == 0 {
+                self.totalAvailable = -1 // Temporary flag to show "No questions found"
+            }
+        }
     }
 }
