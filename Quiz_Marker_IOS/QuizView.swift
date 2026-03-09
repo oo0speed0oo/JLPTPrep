@@ -1,14 +1,17 @@
 import SwiftUI
+import Translation // 1. Must import the framework
 
 struct QuizView: View {
     @Binding var path: NavigationPath
-    
-    // Use @State for @Observable class
     @State var manager = QuizManager()
     
     @State private var showingAnswer = false
     @State private var isCorrect = false
+    @State private var hasCopied = false
     
+    // 2. State to trigger the translation UI
+    @State private var showTranslation = false
+
     let file: String
     let units: [String]
     let chapters: [String]
@@ -27,7 +30,6 @@ struct QuizView: View {
                 VStack(spacing: 5) {
                     Text("Question \(manager.currentIndex + 1) / \(manager.questions.count)")
                         .font(.caption)
-                    
                     Text("Unit \(q.unit) • Chapter \(q.chapter)")
                         .font(.caption2)
                         .padding(5)
@@ -36,17 +38,43 @@ struct QuizView: View {
                 }
 
                 // 2. Question Text
-                ScrollView {
-                    Text(q.text)
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .multilineTextAlignment(.center)
-                        .padding()
+                VStack(spacing: 15) {
+                    ScrollView {
+                        Text(q.text)
+                            .font(.title3)
+                            .fontWeight(.medium)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                    }
+                    .frame(maxHeight: 200)
+
+                    // Action Buttons UNDER the question
+                    HStack(spacing: 20) {
+                        // Copy Button
+                        Button(action: { copyToClipboard(q.text) }) {
+                            Label(hasCopied ? "Copied" : "Copy", systemImage: hasCopied ? "checkmark.circle.fill" : "doc.on.doc")
+                                .font(.caption.bold())
+                        }
+                        .buttonStyle(.bordered)
+                        .tint(hasCopied ? .green : .blue)
+
+                        // Translate Button
+                        Button(action: {
+                            showTranslation.toggle() // 3. Trigger the sheet
+                        }) {
+                            Label("Translate", systemImage: "character.book.closed")
+                                .font(.caption.bold())
+                        }
+                        .buttonStyle(.bordered)
+                        .tint(.purple)
+                    }
                 }
+                // 4. Attach the Translation Overlay
+                .translationPresentation(isPresented: $showTranslation, text: q.text)
 
                 // 3. Choices
                 VStack(spacing: 12) {
-                    // We use sorted keys to ensure we match exactly what is in the dictionary
                     ForEach(["A", "B", "C", "D"], id: \.self) { letter in
                         Button(action: {
                             withAnimation {
@@ -57,7 +85,6 @@ struct QuizView: View {
                             HStack {
                                 Text("\(letter))")
                                     .fontWeight(.bold)
-                                // Use a fallback string if the dictionary key is missing
                                 Text(q.choices[letter] ?? "Choice not found")
                                 Spacer()
                             }
@@ -85,6 +112,7 @@ struct QuizView: View {
                         
                         Button(action: {
                             showingAnswer = false
+                            hasCopied = false
                             manager.nextQuestion()
                         }) {
                             Text(manager.currentIndex + 1 < manager.questions.count ? "Next Question" : "See Results")
@@ -99,7 +127,6 @@ struct QuizView: View {
                     }
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
-                
                 Spacer()
             }
         }
@@ -108,19 +135,23 @@ struct QuizView: View {
             manager.loadQuestions(filename: file, units: units, chapters: chapters, limit: limit)
         }
         .alert("Quiz Finished", isPresented: $manager.isFinished) {
-            Button("Back to Menu") {
-                path = NavigationPath()
-            }
+            Button("Back to Menu") { path = NavigationPath() }
         } message: {
             Text("Your final score is \(manager.score) out of \(manager.questions.count).")
         }
     }
 
-    // Improved UI Feedback Colors
-    func buttonColor(for letter: String) -> Color {
-        guard showingAnswer, let q = manager.currentQuestion else {
-            return Color.blue.opacity(0.05)
+    func copyToClipboard(_ text: String) {
+        UIPasteboard.general.string = text
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        withAnimation { hasCopied = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            withAnimation { hasCopied = false }
         }
+    }
+
+    func buttonColor(for letter: String) -> Color {
+        guard showingAnswer, let q = manager.currentQuestion else { return Color.blue.opacity(0.05) }
         if letter == q.answer { return .green.opacity(0.1) }
         return Color.gray.opacity(0.05)
     }
