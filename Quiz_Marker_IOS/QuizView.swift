@@ -58,8 +58,9 @@ struct QuizView: View {
                 total: manager.questions.count,
                 durationSeconds: duration
             )
-            // ← Save wrong answers to persistent store
             store.saveWrongAnswers(manager.wrongAnswers, quizName: quizDisplayName)
+            // ← Save per-chapter correct/total breakdown
+            store.saveChapterAttempts(manager.chapterBreakdown(), quizName: quizDisplayName)
         }
     }
 

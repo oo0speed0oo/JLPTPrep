@@ -25,27 +25,31 @@ struct StudySession: Codable, Identifiable {
 
 /// One question the user got wrong — stored persistently so they can review later.
 struct PersistedWrongAnswer: Codable, Identifiable {
-    let id:          UUID
-    let quizName:    String
-    let chapter:     String
-    let unit:        String
+    let id:             UUID
+    let quizName:       String
+    let chapter:        String
+    let unit:           String
     let questionNumber: String
-    let questionText: String
-    let choiceA:     String
-    let choiceB:     String
-    let choiceC:     String
-    let choiceD:     String
-    let correctAnswer: String   // letter, e.g. "B"
-    let chosenAnswer:  String   // what the user actually picked
-    let date:        Date
+    let questionText:   String
+    let choiceA:        String
+    let choiceB:        String
+    let choiceC:        String
+    let choiceD:        String
+    let correctAnswer:  String
+    let chosenAnswer:   String
+    let date:           Date
 }
 
-/// Aggregate performance per chapter, across all attempts.
-struct ChapterScore: Identifiable {
-    let id      = UUID()
-    let chapter: String
-    var correct: Int
-    var total:   Int
+/// Cumulative correct/total attempts for one chapter across ALL sessions.
+/// Merging strategy: each new quiz session adds to the running totals.
+struct ChapterAttempt: Codable, Identifiable {
+    let id:       UUID
+    let quizName: String
+    let chapter:  String
+    var correct:  Int
+    var total:    Int
+    var lastSeen: Date
+
     var percentage: Int {
         guard total > 0 else { return 0 }
         return Int(Double(correct) / Double(total) * 100)
@@ -56,17 +60,19 @@ struct ChapterScore: Identifiable {
 
 @Observable
 class QuizStore {
-    private(set) var records:      [QuizRecord]           = []
-    private(set) var sessions:     [StudySession]         = []
-    private(set) var wrongAnswers: [PersistedWrongAnswer] = []
+    private(set) var records:         [QuizRecord]           = []
+    private(set) var sessions:        [StudySession]         = []
+    private(set) var wrongAnswers:    [PersistedWrongAnswer] = []
+    private(set) var chapterAttempts: [ChapterAttempt]       = []   // ← NEW
 
-    private let recordsKey      = "quiz_records_v1"
-    private let sessionsKey     = "quiz_sessions_v1"
-    private let wrongAnswersKey = "wrong_answers_v1"
+    private let recordsKey         = "quiz_records_v1"
+    private let sessionsKey        = "quiz_sessions_v1"
+    private let wrongAnswersKey    = "wrong_answers_v1"
+    private let chapterAttemptsKey = "chapter_attempts_v1"           // ← NEW
 
     init() { load() }
 
-    // MARK: - Save
+    // MARK: - Save Quiz Record
 
     func saveRecord(quizName: String, score: Int, total: Int, durationSeconds: Double) {
         let record = QuizRecord(
@@ -85,7 +91,43 @@ class QuizStore {
         persist(sessions, key: sessionsKey)
     }
 
-    /// Call at end of quiz with all WrongAnswer objects from QuizManager.
+    // MARK: - Save Chapter Attempts
+
+    /// Called at end of each quiz with the per-chapter breakdown from QuizManager.
+    /// Merges into existing running totals so scores improve over time.
+    func saveChapterAttempts(_ breakdown: [String: (correct: Int, total: Int)], quizName: String) {
+        guard !breakdown.isEmpty else { return }
+        let now = Date()
+
+        for (chapter, counts) in breakdown {
+            // Find existing record for this quiz+chapter and accumulate
+            if let idx = chapterAttempts.firstIndex(where: {
+                $0.quizName == quizName && $0.chapter == chapter
+            }) {
+                chapterAttempts[idx].correct  += counts.correct
+                chapterAttempts[idx].total    += counts.total
+                chapterAttempts[idx].lastSeen  = now
+            } else {
+                chapterAttempts.append(ChapterAttempt(
+                    id:       UUID(),
+                    quizName: quizName,
+                    chapter:  chapter,
+                    correct:  counts.correct,
+                    total:    counts.total,
+                    lastSeen: now
+                ))
+            }
+        }
+        persist(chapterAttempts, key: chapterAttemptsKey)
+    }
+
+    /// Look up the cumulative attempt record for one chapter.
+    func chapterAttempt(chapter: String, quizName: String) -> ChapterAttempt? {
+        chapterAttempts.first { $0.chapter == chapter && $0.quizName == quizName }
+    }
+
+    // MARK: - Wrong Answers
+
     func saveWrongAnswers(_ mistakes: [WrongAnswer], quizName: String) {
         guard !mistakes.isEmpty else { return }
         let persisted: [PersistedWrongAnswer] = mistakes.map { w in
@@ -105,50 +147,21 @@ class QuizStore {
                 date:           Date()
             )
         }
-        // Prepend so newest appear first; keep max 500 entries to avoid bloat
         wrongAnswers = Array((persisted + wrongAnswers).prefix(500))
         persist(wrongAnswers, key: wrongAnswersKey)
     }
 
-    /// Remove a single wrong answer by ID (called when user answers correctly in review mode).
     func removeWrongAnswer(id: UUID) {
         wrongAnswers.removeAll { $0.id == id }
         persist(wrongAnswers, key: wrongAnswersKey)
     }
 
-    /// Remove all stored wrong answers (user can clear after they've reviewed).
     func clearWrongAnswers() {
         wrongAnswers = []
         persist(wrongAnswers, key: wrongAnswersKey)
     }
 
-    // MARK: - Chapter Score Summaries
-
-    /// Returns per-chapter performance derived from persisted wrong answers + total attempts.
-    /// Key: chapter string → ChapterScore
-    func chapterScores(for quizName: String, questions: [Question]) -> [String: ChapterScore] {
-        // We compute scores from the records + wrong answers.
-        // For each question answered (total seen), we count how many were wrong per chapter.
-        // "total seen" comes from sessions' question counts; we approximate using wrong answers
-        // as the denominator anchor and record scores for the percentage.
-        // Simpler approach: track per chapter from wrong answers + record data.
-        // Since we don't store per-question correct history, we derive:
-        //   correct = (record correct answers that belong to chapter, estimated by proportion)
-        // Real per-question tracking is in wrongAnswers though, so we do:
-        //   wrong per chapter = count from wrongAnswers
-        //   total per chapter = from all records (we store that info per quiz, not per chapter)
-        // Best we can do without extra data: show "X wrong" per chapter from wrongAnswers.
-        var scores: [String: ChapterScore] = [:]
-        for w in wrongAnswers where w.quizName == quizName {
-            if scores[w.chapter] == nil {
-                scores[w.chapter] = ChapterScore(chapter: w.chapter, correct: 0, total: 0)
-            }
-            scores[w.chapter]!.total += 1   // every stored entry = a wrong attempt
-        }
-        return scores
-    }
-
-    /// How many times a chapter question was answered wrong (simple badge count).
+    /// How many times a chapter question was answered wrong (red badge).
     func wrongCount(for chapter: String, quizName: String) -> Int {
         wrongAnswers.filter { $0.chapter == chapter && $0.quizName == quizName }.count
     }
@@ -165,9 +178,10 @@ class QuizStore {
     // MARK: - Persistence
 
     private func load() {
-        records      = decode([QuizRecord].self,           key: recordsKey)      ?? []
-        sessions     = decode([StudySession].self,         key: sessionsKey)     ?? []
-        wrongAnswers = decode([PersistedWrongAnswer].self,  key: wrongAnswersKey) ?? []
+        records         = decode([QuizRecord].self,           key: recordsKey)         ?? []
+        sessions        = decode([StudySession].self,         key: sessionsKey)        ?? []
+        wrongAnswers    = decode([PersistedWrongAnswer].self,  key: wrongAnswersKey)    ?? []
+        chapterAttempts = decode([ChapterAttempt].self,        key: chapterAttemptsKey) ?? []
     }
 
     private func persist<T: Encodable>(_ value: T, key: String) {

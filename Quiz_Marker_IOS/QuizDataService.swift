@@ -30,14 +30,41 @@ struct QuizDataService {
         guard let chapterIdx = schema.chapter else { return [] }
         return uniqueSorted(rows.compactMap { row -> String? in
             guard row.count > chapterIdx else { return nil }
-
             if !units.isEmpty, let unitIdx = schema.unit {
                 guard row.count > unitIdx, units.contains(row[unitIdx].trimmed) else { return nil }
             }
-
             let c = row[chapterIdx].trimmed
             return c.isEmpty ? nil : c
         })
+    }
+
+    /// Returns a dictionary of chapter → total question count for the given units.
+    /// This is the "ground truth" total used for the X / Y badge in ChapterSelectionView.
+    func questionCountPerChapter(inUnits units: [String]) -> [String: Int] {
+        guard let chapterIdx = schema.chapter else { return [:] }
+        let s = schema
+        var counts: [String: Int] = [:]
+
+        for row in rows {
+            let required = max(s.number, s.text, s.choiceA, s.choiceB, s.choiceC, s.choiceD, s.answer)
+            guard row.count > required else { continue }
+
+            // Unit filter
+            if !units.isEmpty, let unitIdx = s.unit {
+                guard row.count > unitIdx, units.contains(row[unitIdx].trimmed) else { continue }
+            }
+
+            guard row.count > chapterIdx else { continue }
+            let chapter = row[chapterIdx].trimmed
+            guard !chapter.isEmpty else { continue }
+
+            // Must have a valid answer
+            let answer = row[s.answer].trimmed
+            guard !answer.isEmpty else { continue }
+
+            counts[chapter, default: 0] += 1
+        }
+        return counts
     }
 
     // MARK: - Questions
@@ -45,20 +72,17 @@ struct QuizDataService {
     func questions(units: [String], chapters: [String], limit: Int) -> [Question] {
         let s = schema
         let matched: [Question] = rows.compactMap { row in
-            // Skip any row that doesn't have enough columns to fill all required fields.
-            // This silently drops malformed rows rather than crashing or showing blank answers.
             let required = max(s.number, s.text, s.choiceA, s.choiceB, s.choiceC, s.choiceD, s.answer)
             guard row.count > required else { return nil }
 
-            let unit       = s.unit.flatMap       { row.count > $0 ? row[$0].trimmed : nil } ?? ""
-            let chapter    = s.chapter.flatMap    { row.count > $0 ? row[$0].trimmed : nil } ?? ""
-            let grammarRef = s.grammarRef.flatMap  { row.count > $0 ? row[$0].trimmed : nil } ?? ""
+            let unit       = s.unit.flatMap      { row.count > $0 ? row[$0].trimmed : nil } ?? ""
+            let chapter    = s.chapter.flatMap   { row.count > $0 ? row[$0].trimmed : nil } ?? ""
+            let grammarRef = s.grammarRef.flatMap { row.count > $0 ? row[$0].trimmed : nil } ?? ""
 
             let unitMatch    = units.isEmpty    || units.contains(unit)
             let chapterMatch = chapters.isEmpty || chapters.contains(chapter)
             guard unitMatch && chapterMatch else { return nil }
 
-            // Skip rows where the answer is missing or blank
             let answer = row[s.answer].trimmed
             guard !answer.isEmpty else { return nil }
 
@@ -68,11 +92,11 @@ struct QuizDataService {
                 chapter:    chapter,
                 grammarRef: grammarRef,
                 rawText:    row[s.text].trimmed,
-                choiceA: row[s.choiceA].trimmed,
-                choiceB: row[s.choiceB].trimmed,
-                choiceC: row[s.choiceC].trimmed,
-                choiceD: row[s.choiceD].trimmed,
-                answer:  answer
+                choiceA:    row[s.choiceA].trimmed,
+                choiceB:    row[s.choiceB].trimmed,
+                choiceC:    row[s.choiceC].trimmed,
+                choiceD:    row[s.choiceD].trimmed,
+                answer:     answer
             )
         }
 
