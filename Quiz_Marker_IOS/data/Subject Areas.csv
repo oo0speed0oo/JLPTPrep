@@ -74,116 +74,161 @@ question_number,unit_number,chapter_number,question,choice_a,choice_b,choice_c,c
 73,Collocations,1,(comb hair) 髪,を洗います,をとかします,を切ります,射す,B
 74,Collocations,1,(cut nails) 爪,を洗います,をとかします,を切ります,射す,C
 75,Collocations,1,(wash hands) 手,を洗います,をとかします,を切ります,射す,D
-76,Collocations,2,シャツを_____,着る,置く,する,履く,A
-77,Collocations,2,コートを_____,着る,置く,する,履く,A
-78,Collocations,2,靴を_____,被る,履く,する,置く,B
-79,Collocations,2,靴下を______,被る,着る,履く,置く,C
-80,Collocations,2,ズボンを________,被る,着る,する,履く,D
-81,Collocations,2,眼鏡を_______,被る,着る,掛ける　（かかる）,する,C
-82,Collocations,2,ネクタイを________,被る,締める,する,履く,B
-83,Collocations,2,帽子を______,掛ける,着る,する,履く,A
-84,Collocations,2,時計を_______,掛ける,する,着る,履く,B
+76,Collocations,1,シャツを_____,着る,置く,する,履く,A
+77,Collocations,1,コートを_____,着る,置く,する,履く,A
+78,Collocations,1,靴を_____,被る,履く,する,置く,B
+79,Collocations,1,靴下を______,被る,着る,履く,置く,C
+80,Collocations,1,ズボンを________,被る,着る,する,履く,D
+81,Collocations,1,眼鏡を_______,被る,着る,掛ける　（かかる）,する,C
+82,Collocations,1,ネクタイを________,被る,締める,する,履く,B
+83,Collocations,1,帽子を______,掛ける,着る,する,履く,A
+84,Collocations,1,時計を_______,掛ける,する,着る,履く,B
 85,Collocations,2,アクセサリーを_______,被る,着る,する,履く,C
 86,Collocations,2,物を_____,被る,する,履く (haku),置く,D
-87,5 W's,1,___ が あなたの 先生ですか。 (Who is your teacher?),だれ,どれ,どこ,いつ,A
-88,5 W's,1,___ も 休み（Yasumi）です。 (Everywhere is closed/on holiday.),いつ,どこ,どれ,いつ,B
-89,5 W's,1,___ も 好き（Suki）です。 (I like all of them.),だれ,いつ,どれ,どこ,C
-90,5 W's,1,___ が いいですか。 (When is [specifically] good?),だれ,どこ,どれ,いつ,D
-91,5 W's,1,___ も 行きません。 (I'm going nowhere / not going anywhere.),どこ,いつ,だれ,どれ,A
-92,5 W's,1,___ も おなじ（Onaji）です。 (Everything is the same.),だれ,どれ,どこ,いつ,B
-93,5 W's,1,___ が 食べましたか。 (Who [specifically] ate it?),いつ,どれ,だれ,どこ,C
-94,5 W's,1,___ も 寝ています（Neteimasu）。 (Everyone is sleeping.),いつ,どこ,どれ,だれ,D
-95,5 W's,2, ___ も 忙しい（Isogashii）です。 (I am always busy.),いつ,どこ,だれ,どれ,A
-96,5 W's,2, ___ が おいしいですか。 (Which one [specifically] is delicious?),どれ,どれ,いつ,だれ,B
-97,5 W's,2,どれ ___ ありますか。 (Which one [specifically] is there?),が,も,を,は,A
-98,5 W's,2,いつ ___ 忙（いそが）しいです。 (I am always busy.),で,も,を,に,B
-99,5 W's,2,だれ ___ きましたか。 (Who [specifically] came?),で,も,が,の,C
-100,5 W's,2,どこ ___ 行（い）きませんでした。 (I went nowhere.),で,が,を,も,D
-101,5 W's,2,だれ ___ 答（こた）えられます。 (Anyone/Everyone can answer.),も,が,を,に,A
-102,が　vs  も,2,"""Everyone is kind."" だれ ___ 親切（しんせつ）です。",が,も,,,B
-103,が　vs  も,2,"""Who (specifically) is kind?""だれ ___ 親切ですか。",が,も,,,A
-104,が　vs  も,2,"""Every one (all) of them is expensive."" どれ ___ 高（たか）いですね。",が,も,,,B
-105,が　vs  も,2,"""Which one is expensive?"" どれ ___ 高いですか。",が,も,,,A
-106,が　vs  も,2,"""Everywhere is quiet."" どこ ___ 静（しず）かです。",が,も,,,B
-107,が　vs  も,2,"""Which place is quiet?"" どこ ___ 静かですか。",が,も,,,A
-108,が　vs  も,2,"""I am always free."" いつ ___ 暇（ひま）です。",が,も,,,B
-109,が　vs  も,2,"""When are you free?"" いつ ___ 暇ですか。",が,も,,,A
-110,が　vs  も,2,"""Every classroom is clean."" どの 教室 ___ きれいですね。",が,も,,,B
-111,が　vs  も,2,"""Which classroom is clean?"" どの 教室 ___ きれいですか。",が,も,,,A
-112,Train Vocabulary,1,特急 (Limited Express),ときゅう,とっきゅう,どっきゅう,とっこう,B
-113,Train Vocabulary,1,快速 (Rapid Train),かいそ,かいそく,がいそく,けいそく,B
-114,Train Vocabulary,1,改札口 (Ticket Gate),かいさつこう,かいさつぐち,かいさつぐち,かいさつもん,C
-115,Train Vocabulary,1,自由席 (Non-reserved),じゆうせき,しゆうせき,じゅうせき,じゆうぜき,A
-116,Train Vocabulary,1,指定席 (Reserved Seat),じっていせき,しだいせき,していせき,していぜき,C
-117,Train Vocabulary,1,終点 (Last Stop),しゅうて,しゅうてん,しゅてん,じゅうてん,B
-118,Train Vocabulary,1,遅延 (Delay),ちえん,じえん,ぢえん,ちえい,A
-119,Train Vocabulary,1,急行 (Express),きゅうこ,きゅうこう,ぎゅうこう,きょうこう,B
-120,Train Vocabulary,1,乗り換え (Transfer),のりかわ,のりかえし,のりかえ,のりかい,C
-121,Train Vocabulary,2,普通 (Local Train),ほうつう,ふつ,ふつう,ぷつう,C
-122,Train Vocabulary,2,窓口 (Ticket Counter),まどくち,まどぐち,まどぐ,まどぐちえん,B
-123,Train Vocabulary,2,精算機 (Fare Adjustment),せいさんきん,せいざんき,せいさんき,せいさんきかい,C
-124,Train Vocabulary,2,まもなく (Shortly),まもなく,まもなくん,まうなく,まもなぐ,A
-125,Train Vocabulary,2,発車します (Departing),はっさします,はっしゃします,はっしょします,ばっしゃします,B
-126,Train Vocabulary,2,停車します (Stopping),ていしゃします,でいしゃします,ていざします,ていしゃしなす,A
-127,Train Vocabulary,2,駆け込み乗車 (Rushing),かけこみじょうさん,かけこみじょしゃ,かけこみじょうしゃ,かけごみじょうしゃ,C
-128,Train Vocabulary,2,人身事故 (Personal Accident),じんしんじご,じんしんじこ,にんしんじこ,ひとみじこ,B
-129,Train Vocabulary,2,遅延証明書 (Delay Slip),ちえんしょうめいしょ,しえんしょうめいしょ,ちえんしょうめいそ,ちえんめいしょ,A
-130,Train Vocabulary,2,新幹線 (Bullet Train),しんかんぜん,しんかぜん,しんかんせん,じんかんせん,C
-131,Train Vocabulary,3,急行 (Express),きゅうこ,きょうこう,きゅうこう,ぎゅうこう,C
-132,Train Vocabulary,3,改札口 (Ticket Gate),かいさつこう,かいさつぐち,かいさつぐ,かいさつもん,B
-133,Train Vocabulary,3,切符売り場 (Ticket Area),きっぷりば,きぷうりば,きっぷうりば,きっぷうりは,C
-134,Train Vocabulary,3,自由席 (Non-reserved),じゆうせき,しゆうせき,じゆうぜき,じゅうせき,A
-135,Train Vocabulary,3,指定席 (Reserved Seat),していぜき,していせ,していせき,じっていせき,C
-136,Train Vocabulary,3,乗り換え (Transfer),のりかわ,のりかい,のりかえ,のりかえし,C
-137,Train Vocabulary,3,終点 (Last Stop),しゅてん,しゅうてん,じゅうてん,しゅうでん,B
-138,Train Vocabulary,3,運転見合わせ (Suspended),うんてんみあわせ,うんてんみあわぜ,うんでんみあわせ,うんてんみあえ,A
-139,Train Vocabulary,3,遅延 (Delay),ちえん,じえん,ちえい,ちえんし,A
-140,Train Vocabulary,3,特急 (Limited Express),ときゅう,とっきゅう,どっきゅう,とっくう,B
-141,Train Vocabulary,3,快速 (Rapid),かいそく,かいそ,けいそく,がいそく,A
-142,Train Vocabulary,3,各駅停車 (Local),かくえきていしゃ,かくえきていしゃ,かくえきていさ,がくえきていしゃ,B
-143,Vehicle,1,車両,しゃば,しゃりょう,くるま,りょうがえ,B
-144,Vehicle,1,乗り物,たべもの,きもの,のりもの,のみもの,C
-145,Vehicle,1,媒介物,ばいかいぶつ,はんかいぶつ,なかだち,ぶったい,A
-146,Vehicle,1,車,くるま,しゃりょう,でんしゃ,じてんしゃ,A
-147,Vehicle,1,電車,じどうしゃ,じてんしゃ,でんしゃ,きかんしゃ,C
-148,Vehicle,1,バス,バス,タクシー,でんしゃ,モノレール,A
-149,Transport,1,特急,せんしゅう,とっきゅう,きゅうこう,ふつう,B
-150,Transport,1,各停,かくてい,かくち,ていしゃ,まんいん,A
-151,Transport,1,踏切,ふみだい,いりぐち,ふみきり,とおせんぼ,C
-152,Transport,1,方面,ほうほう,かためん,ほうめん,ほうこう,C
-153,Transport,1,改札,かいさつ,けいさつ,かいせん,かんさつ,A
-154,Transport,1,運賃,うんどう,うんてん,うんちん,きんぎん,C
-155,Transport,1,優先席,ゆうせん,ゆうせんせき,よやくせき,じゆうせき,B
-156,Transport,1,自転車,じどうしゃ,じてんしゃ,じどうき,じてん,B
-157,Transport,1,自動車,じどうしゃ,じてんしゃ,でんしゃ,きどうしゃ,A
-158,Transport,1,歩行者,うんてんしゅ,りょかく,ほこうしゃ,かんこうきゃく,C
-159,Warning,1,立入禁止,ちゅうしゃきんし,きつえんきんし,たちいりきんし,しんにゅうきんし,C
-160,Warning,1,放置禁止,ほうちきんし,ちゅうしゃきんし,ぽいすて,ごみすて,A
-161,Warning,1,火気厳禁,かじげんきん,かきげんきん,ひあそび,かさい,B
-162,Warning,1,不法投棄,ふほうしんにゅう,ふほうしょじ,ふほうとうき,ふほうしゅうし,C
-163,Warning,1,徐行,とまれ,じょこう,ちゅうい,こうしん,B
-164,Warning,1,進入禁止,つうこうどめ,ちゅうしゃきんし,しんにゅうきんし,でぐち,C
-165,Warning,1,段差注意,つまずき,すべりどめ,だんさちゅうい,こうじちゅう,C
-166,Warning,2,頭上注意,ずじょうちゅうい,あしもとちゅうい,ぜんぽうちゅうい,こうほう,A
-167,Warning,2,足元注意,ずじょうちゅうい,あしもとちゅうい,みぎひだり,きけん,B
-168,Warning,2,投棄禁止,ほうりきんし,らくがき,とうききんし,かききんし,C
-169,Warning,2,公園内,こうえんがい,こうえんない,こうえんちゅう,こうえんまえ,B
-170,Warning,2,禁煙,きんえん,きんし,えんりょ,かきげんきん,A
-171,Warning,2,花火,はなびら,はなび,かび,かし,B
-172,Warning,2,禁止,ちゅうい,きけん,きんし,むり,C
-173,Warning,2,危ない,あぶない,きれい,きたない,すくない,A
-174,Warning,2,駐輪禁止,ちゅうしゃきんし,たちいりきんし,ちゅうりんきんし,ぽいすてきんし,C
-175,Place,1,注意,ちゅうい,ちゅうしゃ,じゅんび,ようじん,A
-176,Place,1,非常口,でいりぐち,かいさつぐち,ひじょうぐち,かんこうぐち,C
-177,Place,1,駐車場,ちゅうりんじょう,ちゅうしゃじょう,ていりゅうじょ,こうえん,B
-178,Place,1,交番,こうばん,こうばん,こうしょ,けいさつ,B
-179,Place,1,郵便局,ゆうびんきょく,やくしょ,ぎんこう,びょういん,A
-180,Place,1,病院,がっこう,びよういん,びょういん,だいがく,C
-181,Place,2,洗面所,おてあらい,といれ,せんめんじょ,おふろ,C
-182,Place,2,案内所,あんないじょ,あんないにん,じむしょ,うけつけ,A
-183,Place,2,停留所,えき,ていりゅうじょ,バスてい,バスおき,B
-184,Place,2,事務所,じゅうしょ,じむしょ,ばしょ,やくしょ,B
-185,Place,2,公園,がっこう,こうえん,びょういん,えき,B
-186,Place,2,会社,ぎんこう,てんいん,かいしゃ,じむしょ,C
-187,Place,2,駐輪,ちゅうしゃ,ちゅうりん,ていしゃ,じてんしゃ,B
-188,Place,2,乗り場,のりかえ,のりば,おきば,いりぐち,B
+87,Collocations,2,階段を（ ）,上る,登る,入る,乗る,a
+88,Collocations,2,山に（ ）,上る,登る,出る,行く,b
+89,Collocations,2,年を（ ）,食べる,取る,増える,なる,b
+90,Collocations,2,風邪を（ ）,折る,壊す,引く,かかる,c
+91,Collocations,2,熱が（ ）,出る,引く,下がる,悪い,a
+92,Collocations,2,雨が（ ）,来る,降る,吹く,落ちる,b
+93,Collocations,2,雪が（ ）,降る,吹く,積もる,散る,a
+94,Collocations,2,日が（ ）,出る,昇る,上がる,咲く,b
+95,Collocations,2,日が（ ）,落ちる,消える,沈む,終わる,c
+96,Collocations,2,事故に（ ）,会う,遭う,合う,見る,b
+97,Collocations,2,約束を（ ）,持つ,守る,作る,使う,b
+98,Collocations,2,約束を（ ）,壊す,破る,投げる,忘れる,b
+99,Collocations,2,夢を（ ）,する,見る,寝る,考える,b
+100,Collocations,2,夢を（ ）,叶える,作る,守る,運ぶ,a
+101,Collocations,2,責任を（ ）,持つ,取る,出す,負う,b
+102,Collocations,3,責任を（ ）,取る,持つ,感じる,受ける,b
+103,Collocations,3,興味を（ ）,取る,出す,持つ,覚える,c
+104,Collocations,3,影響を（ ）,受ける,与える,伝える,送る,b
+105,Collocations,3,影響を（ ）,与える,受ける,取る,出す,b
+106,Collocations,3,注意を（ ）,出す,払う,投げる,見る,b
+107,Collocations,3,勉強を（ ）,する,書く,読む,覚える,a
+108,Collocations,3,運動を（ ）,作る,する,動く,走る,b
+109,Collocations,3,仕事を（ ）,作る,働く,する,行く,c
+110,Collocations,3,連絡を（ ）,する,取る,送る,言う,a
+111,Collocations,3,準備を（ ）,作る,揃える,する,待つ,c
+112,Collocations,3,努力を（ ）,出す,する,持つ,作る,b
+113,Collocations,3,経験を（ ）,積む,する,作る,受ける,b
+114,Collocations,3,ミスを（ ）,作る,犯す,する,出す,c
+115,Collocations,3,約束を（ ）,言う,守る,する,持つ,c
+116,Collocations,3,電話を（ ）,する,かける,取る,切る,b
+117,Collocations,3,写真を（ ）,作る,撮る,映す,書く,b
+118,Collocations,4,鍵を（ ）,入れる,かける,閉める,止める,b
+119,Collocations,4,眼鏡を（ ）,被る,着る,履く,かける,d
+120,Collocations,4,嘘を（ ）,言う,つく,出す,作る,b
+121,Collocations,4,息を（ ）,出す,する,吐く,浴びる,b
+122,Collocations,4,汗を（ ）,出す,かく,流す,浴びる,b
+123,Collocations,4,声を（ ）,出す,言う,浴びる,鳴らす,a
+124,Collocations,4,車に（ ）,気をつける,気にする,気がつく,気が変わる,a
+125,Collocations,4,失敗を（ ）,気をつける,気にする,気がつく,気が合う,b
+126,Collocations,4,ミスに（ ）,気がつく,気にする,気をつける,気を失う,a
+127,Collocations,4,気が（ ）,動く,変わる,違う,直る,b
+128,Collocations,4,お腹が（ ）,痛い,空く,悪い,壊す,b
+129,Collocations,4,喉が（ ）,空く,痛い,渇く,出る,c
+130,Collocations,4,頭が（ ）,悪い,痛い,重い,回る,b
+131,Collocations,4,具合が（ ）,痛い,悪い,空く,出る,b
+132,5 W's,1,___ が あなたの 先生ですか。 (Who is your teacher?),だれ,どれ,どこ,いつ,A
+133,5 W's,1,___ も 休み（Yasumi）です。 (Everywhere is closed/on holiday.),いつ,どこ,どれ,いつ,B
+134,5 W's,1,___ も 好き（Suki）です。 (I like all of them.),だれ,いつ,どれ,どこ,C
+135,5 W's,1,___ が いいですか。 (When is [specifically] good?),だれ,どこ,どれ,いつ,D
+136,5 W's,1,___ も 行きません。 (I'm going nowhere / not going anywhere.),どこ,いつ,だれ,どれ,A
+137,5 W's,1,___ も おなじ（Onaji）です。 (Everything is the same.),だれ,どれ,どこ,いつ,B
+138,5 W's,1,___ が 食べましたか。 (Who [specifically] ate it?),いつ,どれ,だれ,どこ,C
+139,5 W's,1,___ も 寝ています（Neteimasu）。 (Everyone is sleeping.),いつ,どこ,どれ,だれ,D
+140,5 W's,2, ___ も 忙しい（Isogashii）です。 (I am always busy.),いつ,どこ,だれ,どれ,A
+141,5 W's,2, ___ が おいしいですか。 (Which one [specifically] is delicious?),どれ,どれ,いつ,だれ,B
+142,5 W's,2,どれ ___ ありますか。 (Which one [specifically] is there?),が,も,を,は,A
+143,5 W's,2,いつ ___ 忙（いそが）しいです。 (I am always busy.),で,も,を,に,B
+144,5 W's,2,だれ ___ きましたか。 (Who [specifically] came?),で,も,が,の,C
+145,5 W's,2,どこ ___ 行（い）きませんでした。 (I went nowhere.),で,が,を,も,D
+146,5 W's,2,だれ ___ 答（こた）えられます。 (Anyone/Everyone can answer.),も,が,を,に,A
+147,が　vs  も,2,"""Everyone is kind."" だれ ___ 親切（しんせつ）です。",が,も,,,B
+148,が　vs  も,2,"""Who (specifically) is kind?""だれ ___ 親切ですか。",が,も,,,A
+149,が　vs  も,2,"""Every one (all) of them is expensive."" どれ ___ 高（たか）いですね。",が,も,,,B
+150,が　vs  も,2,"""Which one is expensive?"" どれ ___ 高いですか。",が,も,,,A
+151,が　vs  も,2,"""Everywhere is quiet."" どこ ___ 静（しず）かです。",が,も,,,B
+152,が　vs  も,2,"""Which place is quiet?"" どこ ___ 静かですか。",が,も,,,A
+153,が　vs  も,2,"""I am always free."" いつ ___ 暇（ひま）です。",が,も,,,B
+154,が　vs  も,2,"""When are you free?"" いつ ___ 暇ですか。",が,も,,,A
+155,が　vs  も,2,"""Every classroom is clean."" どの 教室 ___ きれいですね。",が,も,,,B
+156,が　vs  も,2,"""Which classroom is clean?"" どの 教室 ___ きれいですか。",が,も,,,A
+157,Train Vocabulary,1,特急 (Limited Express),ときゅう,とっきゅう,どっきゅう,とっこう,B
+158,Train Vocabulary,1,快速 (Rapid Train),かいそ,かいそく,がいそく,けいそく,B
+159,Train Vocabulary,1,改札口 (Ticket Gate),かいさつこう,かいさつぐち,かいさつぐち,かいさつもん,C
+160,Train Vocabulary,1,自由席 (Non-reserved),じゆうせき,しゆうせき,じゅうせき,じゆうぜき,A
+161,Train Vocabulary,1,指定席 (Reserved Seat),じっていせき,しだいせき,していせき,していぜき,C
+162,Train Vocabulary,1,終点 (Last Stop),しゅうて,しゅうてん,しゅてん,じゅうてん,B
+163,Train Vocabulary,1,遅延 (Delay),ちえん,じえん,ぢえん,ちえい,A
+164,Train Vocabulary,1,急行 (Express),きゅうこ,きゅうこう,ぎゅうこう,きょうこう,B
+165,Train Vocabulary,1,乗り換え (Transfer),のりかわ,のりかえし,のりかえ,のりかい,C
+166,Train Vocabulary,2,普通 (Local Train),ほうつう,ふつ,ふつう,ぷつう,C
+167,Train Vocabulary,2,窓口 (Ticket Counter),まどくち,まどぐち,まどぐ,まどぐちえん,B
+168,Train Vocabulary,2,精算機 (Fare Adjustment),せいさんきん,せいざんき,せいさんき,せいさんきかい,C
+169,Train Vocabulary,2,まもなく (Shortly),まもなく,まもなくん,まうなく,まもなぐ,A
+170,Train Vocabulary,2,発車します (Departing),はっさします,はっしゃします,はっしょします,ばっしゃします,B
+171,Train Vocabulary,2,停車します (Stopping),ていしゃします,でいしゃします,ていざします,ていしゃしなす,A
+172,Train Vocabulary,2,駆け込み乗車 (Rushing),かけこみじょうさん,かけこみじょしゃ,かけこみじょうしゃ,かけごみじょうしゃ,C
+173,Train Vocabulary,2,人身事故 (Personal Accident),じんしんじご,じんしんじこ,にんしんじこ,ひとみじこ,B
+174,Train Vocabulary,2,遅延証明書 (Delay Slip),ちえんしょうめいしょ,しえんしょうめいしょ,ちえんしょうめいそ,ちえんめいしょ,A
+175,Train Vocabulary,2,新幹線 (Bullet Train),しんかんぜん,しんかぜん,しんかんせん,じんかんせん,C
+176,Train Vocabulary,3,急行 (Express),きゅうこ,きょうこう,きゅうこう,ぎゅうこう,C
+177,Train Vocabulary,3,改札口 (Ticket Gate),かいさつこう,かいさつぐち,かいさつぐ,かいさつもん,B
+178,Train Vocabulary,3,切符売り場 (Ticket Area),きっぷりば,きぷうりば,きっぷうりば,きっぷうりは,C
+179,Train Vocabulary,3,自由席 (Non-reserved),じゆうせき,しゆうせき,じゆうぜき,じゅうせき,A
+180,Train Vocabulary,3,指定席 (Reserved Seat),していぜき,していせ,していせき,じっていせき,C
+181,Train Vocabulary,3,乗り換え (Transfer),のりかわ,のりかい,のりかえ,のりかえし,C
+182,Train Vocabulary,3,終点 (Last Stop),しゅてん,しゅうてん,じゅうてん,しゅうでん,B
+183,Train Vocabulary,3,運転見合わせ (Suspended),うんてんみあわせ,うんてんみあわぜ,うんでんみあわせ,うんてんみあえ,A
+184,Train Vocabulary,3,遅延 (Delay),ちえん,じえん,ちえい,ちえんし,A
+185,Train Vocabulary,3,特急 (Limited Express),ときゅう,とっきゅう,どっきゅう,とっくう,B
+186,Train Vocabulary,3,快速 (Rapid),かいそく,かいそ,けいそく,がいそく,A
+187,Train Vocabulary,3,各駅停車 (Local),かくえきていしゃ,かくえきていしゃ,かくえきていさ,がくえきていしゃ,B
+188,Vehicle,1,車両,しゃば,しゃりょう,くるま,りょうがえ,B
+189,Vehicle,1,乗り物,たべもの,きもの,のりもの,のみもの,C
+190,Vehicle,1,媒介物,ばいかいぶつ,はんかいぶつ,なかだち,ぶったい,A
+191,Vehicle,1,車,くるま,しゃりょう,でんしゃ,じてんしゃ,A
+192,Vehicle,1,電車,じどうしゃ,じてんしゃ,でんしゃ,きかんしゃ,C
+193,Vehicle,1,バス,バス,タクシー,でんしゃ,モノレール,A
+194,Transport,1,特急,せんしゅう,とっきゅう,きゅうこう,ふつう,B
+195,Transport,1,各停,かくてい,かくち,ていしゃ,まんいん,A
+196,Transport,1,踏切,ふみだい,いりぐち,ふみきり,とおせんぼ,C
+197,Transport,1,方面,ほうほう,かためん,ほうめん,ほうこう,C
+198,Transport,1,改札,かいさつ,けいさつ,かいせん,かんさつ,A
+199,Transport,1,運賃,うんどう,うんてん,うんちん,きんぎん,C
+200,Transport,1,優先席,ゆうせん,ゆうせんせき,よやくせき,じゆうせき,B
+201,Transport,1,自転車,じどうしゃ,じてんしゃ,じどうき,じてん,B
+202,Transport,1,自動車,じどうしゃ,じてんしゃ,でんしゃ,きどうしゃ,A
+203,Transport,1,歩行者,うんてんしゅ,りょかく,ほこうしゃ,かんこうきゃく,C
+204,Warning,1,立入禁止,ちゅうしゃきんし,きつえんきんし,たちいりきんし,しんにゅうきんし,C
+205,Warning,1,放置禁止,ほうちきんし,ちゅうしゃきんし,ぽいすて,ごみすて,A
+206,Warning,1,火気厳禁,かじげんきん,かきげんきん,ひあそび,かさい,B
+207,Warning,1,不法投棄,ふほうしんにゅう,ふほうしょじ,ふほうとうき,ふほうしゅうし,C
+208,Warning,1,徐行,とまれ,じょこう,ちゅうい,こうしん,B
+209,Warning,1,進入禁止,つうこうどめ,ちゅうしゃきんし,しんにゅうきんし,でぐち,C
+210,Warning,1,段差注意,つまずき,すべりどめ,だんさちゅうい,こうじちゅう,C
+211,Warning,2,頭上注意,ずじょうちゅうい,あしもとちゅうい,ぜんぽうちゅうい,こうほう,A
+212,Warning,2,足元注意,ずじょうちゅうい,あしもとちゅうい,みぎひだり,きけん,B
+213,Warning,2,投棄禁止,ほうりきんし,らくがき,とうききんし,かききんし,C
+214,Warning,2,公園内,こうえんがい,こうえんない,こうえんちゅう,こうえんまえ,B
+215,Warning,2,禁煙,きんえん,きんし,えんりょ,かきげんきん,A
+216,Warning,2,花火,はなびら,はなび,かび,かし,B
+217,Warning,2,禁止,ちゅうい,きけん,きんし,むり,C
+218,Warning,2,危ない,あぶない,きれい,きたない,すくない,A
+219,Warning,2,駐輪禁止,ちゅうしゃきんし,たちいりきんし,ちゅうりんきんし,ぽいすてきんし,C
+220,Place,1,注意,ちゅうい,ちゅうしゃ,じゅんび,ようじん,A
+221,Place,1,非常口,でいりぐち,かいさつぐち,ひじょうぐち,かんこうぐち,C
+222,Place,1,駐車場,ちゅうりんじょう,ちゅうしゃじょう,ていりゅうじょ,こうえん,B
+223,Place,1,交番,こうばん,こうばん,こうしょ,けいさつ,B
+224,Place,1,郵便局,ゆうびんきょく,やくしょ,ぎんこう,びょういん,A
+225,Place,1,病院,がっこう,びよういん,びょういん,だいがく,C
+226,Place,2,洗面所,おてあらい,といれ,せんめんじょ,おふろ,C
+227,Place,2,案内所,あんないじょ,あんないにん,じむしょ,うけつけ,A
+228,Place,2,停留所,えき,ていりゅうじょ,バスてい,バスおき,B
+229,Place,2,事務所,じゅうしょ,じむしょ,ばしょ,やくしょ,B
+230,Place,2,公園,がっこう,こうえん,びょういん,えき,B
+231,Place,2,会社,ぎんこう,てんいん,かいしゃ,じむしょ,C
+232,Place,2,駐輪,ちゅうしゃ,ちゅうりん,ていしゃ,じてんしゃ,B
+233,Place,2,乗り場,のりかえ,のりば,おきば,いりぐち,B
