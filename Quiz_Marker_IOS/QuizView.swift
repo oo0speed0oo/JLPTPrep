@@ -202,55 +202,55 @@ struct QuizView: View {
         VStack(spacing: 10) {
             ForEach(["A", "B", "C", "D"], id: \.self) { letter in
                 let choiceText = q.option(for: letter)
-                GeometryReader { geo in
-                    HStack(spacing: 8) {
-                        Button {
-                            guard !showingAnswer else { return }
-                            let correct = manager.checkAnswer(letter)
-                            lastAnswerCorrect = correct
-                            withAnimation { showingAnswer = true }
-                        } label: {
-                            HStack {
-                                Text("\(letter): \(choiceText)")
-                                    .multilineTextAlignment(.leading)
-                                Spacer()
-                                if showingAnswer {
-                                    Image(systemName: letter == q.answer
-                                          ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                }
+                HStack(spacing: 8) {
+                    Button {
+                        guard !showingAnswer else { return }
+                        let correct = manager.checkAnswer(letter)
+                        lastAnswerCorrect = correct
+                        withAnimation { showingAnswer = true }
+                    } label: {
+                        HStack(alignment: .top) {
+                            Text("\(letter): \(choiceText)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer(minLength: 4)
+                            if showingAnswer {
+                                Image(systemName: letter == q.answer
+                                      ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                    .padding(.top, 2)
                             }
-                            .padding()
-                            .frame(width: geo.size.width * 0.75)
-                            .frame(minHeight: 50)
-                            .background(choiceBackground(letter: letter, q: q))
-                            .foregroundColor(choiceForeground(letter: letter, q: q))
-                            .cornerRadius(10)
                         }
-                        .disabled(showingAnswer)
-
-                        Button { translatingChoice = letter } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: "character.book.closed")
-                                    .font(.system(size: 16, weight: .semibold))
-                                Text("Translate")
-                                    .font(.system(size: 10, weight: .semibold))
-                            }
-                            .frame(width: geo.size.width * 0.25 - 8)
-                            .frame(minHeight: 50)
-                            .background(Color.teal.opacity(0.15))
-                            .foregroundColor(.teal)
-                            .cornerRadius(10)
-                        }
-                        .translationPresentation(
-                            isPresented: Binding(
-                                get: { translatingChoice == letter },
-                                set: { if !$0 { translatingChoice = nil } }
-                            ),
-                            text: choiceText
-                        )
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(choiceBackground(letter: letter, q: q))
+                        .foregroundColor(choiceForeground(letter: letter, q: q))
+                        .cornerRadius(10)
                     }
+                    .disabled(showingAnswer)
+
+                    Button { translatingChoice = letter } label: {
+                        VStack(spacing: 4) {
+                            Image(systemName: "character.book.closed")
+                                .font(.system(size: 16, weight: .semibold))
+                            Text("Translate")
+                                .font(.system(size: 10, weight: .semibold))
+                        }
+                        .frame(width: 72)
+                        .frame(maxHeight: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color.teal.opacity(0.15))
+                        .foregroundColor(.teal)
+                        .cornerRadius(10)
+                    }
+                    .translationPresentation(
+                        isPresented: Binding(
+                            get: { translatingChoice == letter },
+                            set: { if !$0 { translatingChoice = nil } }
+                        ),
+                        text: choiceText
+                    )
                 }
-                .frame(minHeight: 50)
+                .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(.horizontal)
