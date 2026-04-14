@@ -21,6 +21,7 @@ struct QuizView: View {
     @State private var sessionStart: Date = Date()
     @State private var lastAnswerCorrect: Bool? = nil
     @State private var isBookmarked: Bool = false
+    @State private var showingNotes: Bool = false
 
     private var quizDisplayName: String {
         file.replacingOccurrences(of: ".csv", with: "").capitalized
@@ -46,6 +47,11 @@ struct QuizView: View {
         .onAppear {
             sessionStart = Date()
             manager.load(file: file, units: units, chapters: chapters, limit: limit)
+        }
+        .sheet(isPresented: $showingNotes) {
+            NotesQuickView(store: store)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
         }
         .onDisappear {
             if !manager.isFinished { manager.reset() }
@@ -166,6 +172,13 @@ struct QuizView: View {
                         .font(.caption.bold())
                         .foregroundColor(isBookmarked ? .yellow : .blue)
                 }
+
+                Button { showingNotes = true } label: {
+                    Label("Notes", systemImage: "note.text")
+                        .font(.caption.bold())
+                        .foregroundColor(store.notes.isEmpty ? .secondary : .indigo)
+                }
+                .disabled(store.notes.isEmpty)
             }
         }
         .padding(.horizontal)
