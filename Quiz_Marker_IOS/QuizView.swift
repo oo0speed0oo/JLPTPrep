@@ -176,9 +176,8 @@ struct QuizView: View {
                 Button { showingNotes = true } label: {
                     Label("Notes", systemImage: "note.text")
                         .font(.caption.bold())
-                        .foregroundColor(store.notes.isEmpty ? .secondary : .indigo)
+                        .foregroundColor(.indigo)
                 }
-                .disabled(store.notes.isEmpty)
             }
         }
         .padding(.horizontal)
