@@ -43,8 +43,8 @@ V- ない  + ことにする",Use when you yourself decide to take or not take a
 4,32,N4-32,（Vーる　・　Vーた　・　Vーている）　　＋　ところだ,"Use when you explain what the present situation is like. 食べるところ means someone is ""going to eat now"" 　食べているところ means ""someone is eating now"" and 食べたところ means ""someone is has just finished eating"""
 4,33,N4-33,PL ＋　でしょう　「なAだ　N~~だ~~」,"Use to ask for another person's opinion by adding a nuance that says,　""This is what I think. You think so too, right?"" When you use this expression, the　intonation rises a t the end of the sentence."
 4,34,N4-34,PL ＋　らしい　「なA~~だ~~　N~~だ~~」,Use it when you say what you think is probably the case based on the information you have seen or heard
-4,35,N4-35,PL + といっていた　「＊POの場合もある」,Use it when you tell a person about somethign you heard from a different person.
-4,36,N4-36,V-て　＋　もらう,"Use when you say that another person did something for you, for which you feel grateful. when もらうuse に OR から for the person receiving."
+4,35,N4-35,PL + といっていた　「＊POの場合もある」PO=masu form,Use it when you tell a person about somethign you heard from a different person.
+4,36,N4-36,V-て　＋　もらう (I am receiver) あげる(I give to someone else),"Use when you say that another person did something for you, for which you feel grateful. when もらうuse に OR から for the person receiving."
 4,37,N4-37,V-ます + そうだ,Use when you say what you think or predict will probably happen in the future.
 4,38,N4-38,ば,"Use ”〜ば...""when you say ""If~, then..."" It is often used to talk about necessary conditions in order to fulfill a desire."
 4,39,N4-39,V-て　＋　しまう,Used when the speaker talks about something that is a mistake or is unfortunate o r troublesome.
@@ -69,8 +69,48 @@ V- ない  + ことにする",Use when you yourself decide to take or not take a
 7,58,N4-58,しろ,"Use when you want to forcefully say. Don't do that. It is often used, for example to cheer on athletes or written warnings in public. To explain the meaning oof a sign and the like: between male friends: by a parent to a child: and to warn a dog or cat. You can also use it when you repeat what another person has said."
 7,59,N4-59,PL ＋　って,"In conversation with friends use ""〜って "" in the place of "" 〜と"" when you want to say things like "" という"" and "" と思う"" . "
 7,60,N4-60,てくれた,Use when you express gratitude for an action by another person that was to your benefit. 私に is often omitted.
-7,61,N4-61,no information,
-7,62,N4-62,no information,
-7,63,N4-63,no information,
-7,64,N4-64,no information,
-7,65,N4-65,no information,
+7,61,N4-61,Vーできる　＋　ようになる,Use it when you say that something not doable before becomes doable.
+7,62,N4-62,"いA〜〜い〜〜　＋　さ
+なA＋さ",Use it to turn an adjective into a noun.
+7,63,N4-63,〜よう　・　〜ましょう,"ようis the plain form of 〜ましょう. Use it when you invite the listener, make a suggestion to the listener, or state your own intent."
+7,64,N4-64,Vーよう　＋　と思っている　,When you tell another person about your intent of something you have been thinking about doing since you decided to do it.
+7,65,N4-65,"Nの＋ために
+Vーる＋ために","Use it to clearly state the objective (~) of doing ""...."""
+7,66,N4-66,"V-る＋　つもりだ
+V-ない　＋　つもりだ",Use it to state your strong will.
+7,67,N4-67,V-させる,Use [person A] は [person B] + V-させる　form when you say that A instructed or forced B to do something that B then did. Do not put a higher ranking person in place of [person B].
+8,68,N4-68,〜でございます,"〜でございます　is a polite way to say 〜です. It is used, for example, to talk to a customer or give speeches to a large group of people."
+8,69,N4-69,"PL + んですが
+（なA~~だ~~　な・　N~~だ~~　な","Use it as a perface to a desire, situation, or other topic you want to talk about with someone. "" 〜んですが"". Is often to get a person's attention without saying what it is you want to talk about. "
+8,70,N4-70,"いA ＋ でしょうか
+なA ＋　でしょうか
+N ＋　でしょうか",is a polite way to say 〜ですか
+8,71,N4-71,N1 +と + N2 ＋ と、どちらが〜か,Use when you ask for answers between two options
+8,72,N4-72,N + のぼうが,Use when you compare two options and choose one.
+8,73,N4-73,N1 + より　＋　N2  ＋　のほうが,"When you say that B is more ""~"" than A."
+8,74,N4-74,N + にする,"The speaker can use ""  〜にする"" when he or she talks about a decision to do something that he or she has made. "
+8,75,N4-75,V- ~~ます〜〜　＋　やすい,"Use "" 〜やすい"" to mean that something is easy to do as in "" 食べやすい"" or that something may easily occur, as in "" こわれやすい"" , due to an objects attributes."
+8,76,N4-76,V- ~~ます〜〜　＋　にくい,"Use ""〜にくい"" to mean that something is hard to do, as in ""歩きにくい"" or that something is unlikely to occur, as in ""かわきにくい"" due to an objects attributes"
+8,77,N4-77,"お　＋　V- ~~ます〜〜　＋　する
+お　＋　N　＋　する","Use "" お〜する"" when you humbly say that you do something for the listener. Do not use it with group 3 verbs. ""お〜いたします"" is more polite way to say ""お〜します"". It is often used, for example, when speaking to customers and in business setting."
+9,78,N4-78,お・ご　＋　めいし,"Use ""お・ご"" before nouns and adjectivies to say these words politely."
+9,79,N4-79,"Vーて　＋　いただく
+N を　＋　いただく","""〜ていただく"" is a polite way to say ""〜てもらう"" . Use ""いただく"" when you politely say that you received something"
+9,80,N4-80,される,"Use the honorific form when you respectfully state an action by the listener or someone else. The honorific form is the same as the passive form. It i soften used, for example at work."
+9,81,N4-81,PL + そうだ,"Use ""〜そうだ "" when you tell a person some information you got from the media or some other person."
+9,82,N4-82,N + 中,"""〜中"" is placed after a noun that expresses an action. This is to state that the action is continuing."
+9,83,N4-83,Honorific Vebss,Use the honorific verb when you respectfully state an action by the listener or someone else.
+9,84,N4-84,〜がいちばん,"Use ""〜がいちばん"" when you ask or answer hcich of the three or more things, people, plaes or such is the most ""...."""
+9,85,N4-85,V ー　る　＋　ようになる,"Use ""〜よになる"" when a new situation arises or when something you used to not do has become a new habit."
+9,86,N4-86,"V ー　る　＋　ことになっている
+V ー　ない　＋　ことになっている","Use "" 〜ことになってる"" when you explain to another person a plan or a rule."
+9,87,N4-87,お　＋ ~~ます〜〜　＋　になる,"Use "" "" to respectfully state an action by the listener or someone else."
+10,88,N4-88,"お　＋ ~~ます〜〜　＋　ください
+ご　＋　N  ＋　ください",""" お〜ください"" is a polite way to say "" 〜てください"". Use it when you suggest or instruct the listener to do something. Do not use it with a group of 3 verbs."
+10,89,N4-89,Special humb words,When you humbly state an action taken by you. use special verbs to show the listener respect
+10,90,N4-90,N + なら,"Use "" 〜なら”　when you say that options are no good, but "" ~ ""　is possible, okay or not a problem."
+10,91,N4-91,Vーて　＋　はいけない,"Use ""〜てはいけない” When you tell a person doing something dangerous or otherwise bad to stop it. or when you say that something is not allowed beacuse of a rule or something other reason."
+10,92,N4-92,"V ー　る　＋　ようにする
+V ー　ない　＋　ようにする","Use ""〜よにする"" When you talk about working hard on something now and into the future, or what you will be careful about. Use ""〜ようにしている"" when you talk about working hard on something or being careful about something all the time. not just in that one instance. Use ""〜ようにしてください"" when you want the listener to endeavor to do soemthign or to be careful about something. This is a softer way to saying it than "" 〜てください”"
+10,93,N4-93,"V ー　て　＋　ほしい
+V ー　ないで　＋　ほしい","Use ""〜てほしい"" when you say that you wish for another person to do "" .... """
