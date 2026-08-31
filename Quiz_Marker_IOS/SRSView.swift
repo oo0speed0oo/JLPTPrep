@@ -84,6 +84,8 @@ struct SRSHubView: View {
 struct SRSReviewView: View {
     let store: QuizStore
 
+    @Environment(\.dismiss) private var dismiss
+
     private struct QueueItem: Identifiable {
         var card: SRSCardState
         let question: Question
@@ -174,7 +176,22 @@ struct SRSReviewView: View {
             Text("\(reviewedCount) card\(reviewedCount == 1 ? "" : "s") reviewed")
                 .font(.title3)
                 .foregroundColor(.secondary)
+
             Spacer()
+
+            Button {
+                dismiss()
+            } label: {
+                Text("Done")
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
         }
         .padding()
         .navigationBarBackButtonHidden(true)
