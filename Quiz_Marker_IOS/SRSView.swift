@@ -93,6 +93,7 @@ struct SRSReviewView: View {
     @State private var queue:         [QueueItem] = []
     @State private var currentIndex   = 0
     @State private var showingAnswer  = false
+    @State private var showingMeaning = false
     @State private var isLoading      = true
     @State private var reviewedCount  = 0
 
@@ -191,6 +192,9 @@ struct SRSReviewView: View {
 
                 if showingAnswer {
                     choicesRevealBlock(item.question)
+                    if !item.question.meaning.isEmpty {
+                        meaningBlock(item.question)
+                    }
                     gradingButtons(for: item)
                 } else {
                     Button {
@@ -276,6 +280,36 @@ struct SRSReviewView: View {
         .padding(.horizontal)
     }
 
+    // MARK: - Meaning (on-demand reveal)
+
+    @ViewBuilder
+    private func meaningBlock(_ q: Question) -> some View {
+        if showingMeaning {
+            Text(q.meaning)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.blue.opacity(0.08))
+                .cornerRadius(10)
+                .padding(.horizontal)
+        } else {
+            Button {
+                withAnimation { showingMeaning = true }
+            } label: {
+                Label("Show Meaning", systemImage: "character.book.closed")
+                    .font(.caption.bold())
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                    .background(Color.blue.opacity(0.12))
+                    .foregroundColor(.blue)
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal)
+        }
+    }
+
     // MARK: - Grading
 
     private func gradingButtons(for item: QueueItem) -> some View {
@@ -317,7 +351,8 @@ struct SRSReviewView: View {
         if g == .again, let updated = store.srsCards.first(where: { $0.id == item.card.id }) {
             queue.append(QueueItem(card: updated, question: item.question))
         }
-        showingAnswer = false
+        showingAnswer  = false
+        showingMeaning = false
         currentIndex += 1
     }
 }

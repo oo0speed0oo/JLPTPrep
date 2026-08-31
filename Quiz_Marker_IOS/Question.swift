@@ -6,16 +6,18 @@ struct Question: Identifiable, Hashable {
     let unit:       String
     let chapter:    String
     let grammarRef: String   // ← links to grammar_rules.csv; empty if not set
+    let meaning:    String   // ← optional English gloss, revealed on demand; empty if not set
     let text:       String
     let choices:    [String: String]
     let answer:     String
 
-    init(number: String, unit: String, chapter: String, grammarRef: String, rawText: String,
+    init(number: String, unit: String, chapter: String, grammarRef: String, meaning: String = "", rawText: String,
          choiceA: String, choiceB: String, choiceC: String, choiceD: String, answer: String) {
         self.number     = number.trimmed
         self.unit       = unit.trimmed
         self.chapter    = chapter.trimmed
         self.grammarRef = grammarRef.trimmed
+        self.meaning    = meaning.trimmed
         self.answer     = answer.trimmed.uppercased()
         self.text       = rawText.replacingOccurrences(of: "\\n", with: "\n").trimmed
         self.choices    = ["A": choiceA.trimmed, "B": choiceB.trimmed, "C": choiceC.trimmed, "D": choiceD.trimmed]

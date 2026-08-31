@@ -23,6 +23,7 @@ struct CSVParser {
         let unit:       Int?
         let chapter:    Int?
         let grammarRef: Int?   // ← new: links to grammar_rules.csv
+        let meaning:    Int?   // ← optional English gloss, revealed on demand (not part of the quiz)
         let text:       Int
         let choiceA:    Int
         let choiceB:    Int
@@ -53,6 +54,7 @@ struct CSVParser {
             unit       = col("unit_number") ?? col("unit")
             chapter    = col("chapter_number") ?? col("chapter") ?? col("section_number") ?? col("section")
             grammarRef = col("grammar_ref")
+            meaning    = col("meaning")
             text       = textIdx
             choiceA    = aIdx
             choiceB    = bIdx

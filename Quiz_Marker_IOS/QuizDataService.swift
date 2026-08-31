@@ -115,12 +115,14 @@ struct QuizDataService {
         let unit       = s.unit.flatMap      { row.count > $0 ? row[$0].trimmed : nil } ?? ""
         let chapter    = s.chapter.flatMap   { row.count > $0 ? row[$0].trimmed : nil } ?? ""
         let grammarRef = s.grammarRef.flatMap { row.count > $0 ? row[$0].trimmed : nil } ?? ""
+        let meaning    = s.meaning.flatMap    { row.count > $0 ? row[$0].trimmed : nil } ?? ""
 
         return Question(
             number:     row[s.number].trimmed,
             unit:       unit,
             chapter:    chapter,
             grammarRef: grammarRef,
+            meaning:    meaning,
             rawText:    row[s.text].trimmed,
             choiceA:    row[s.choiceA].trimmed,
             choiceB:    row[s.choiceB].trimmed,
