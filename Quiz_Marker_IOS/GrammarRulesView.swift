@@ -99,10 +99,10 @@ struct GrammarRulesView: View {
         var result: [GrammarChapter] = []
 
         for cols in rows {
-            guard cols.count >= 3 else { continue }
+            guard cols.count >= 4 else { continue }
             let chapterNum = cols[1].trimmed
-            let rule       = cols[2].trimmed
-            let more       = cols.count >= 4 ? cols[3].trimmed : ""
+            let rule       = cols[3].trimmed
+            let more       = cols.count >= 5 ? cols[4].trimmed : ""
 
             guard !chapterNum.isEmpty, !rule.isEmpty else { continue }
             guard !seen.contains(chapterNum) else { continue }  // one entry per chapter

@@ -9,4 +9,8 @@ enum QuizRoute: Hashable {
     case flashcardUnitSelection(file: String)
     case flashcardChapterSelection(file: String, units: [String])
     case flashcards(file: String, units: [String], chapters: [String])
+    case srsFileSelect
+    case srsUnitSelection(file: String)
+    case srsChapterSelection(file: String, units: [String])
+    case srsAddConfirm(file: String, units: [String], chapters: [String])
 }

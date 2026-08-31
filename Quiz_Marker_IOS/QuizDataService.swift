@@ -72,32 +72,14 @@ struct QuizDataService {
     func questions(units: [String], chapters: [String], limit: Int) -> [Question] {
         let s = schema
         let matched: [Question] = rows.compactMap { row in
-            let required = max(s.number, s.text, s.choiceA, s.choiceB, s.choiceC, s.choiceD, s.answer)
-            guard row.count > required else { return nil }
-
             let unit       = s.unit.flatMap      { row.count > $0 ? row[$0].trimmed : nil } ?? ""
             let chapter    = s.chapter.flatMap   { row.count > $0 ? row[$0].trimmed : nil } ?? ""
-            let grammarRef = s.grammarRef.flatMap { row.count > $0 ? row[$0].trimmed : nil } ?? ""
 
             let unitMatch    = units.isEmpty    || units.contains(unit)
             let chapterMatch = chapters.isEmpty || chapters.contains(chapter)
             guard unitMatch && chapterMatch else { return nil }
 
-            let answer = row[s.answer].trimmed
-            guard !answer.isEmpty else { return nil }
-
-            return Question(
-                number:     row[s.number].trimmed,
-                unit:       unit,
-                chapter:    chapter,
-                grammarRef: grammarRef,
-                rawText:    row[s.text].trimmed,
-                choiceA:    row[s.choiceA].trimmed,
-                choiceB:    row[s.choiceB].trimmed,
-                choiceC:    row[s.choiceC].trimmed,
-                choiceD:    row[s.choiceD].trimmed,
-                answer:     answer
-            )
+            return makeQuestion(from: row)
         }
 
         let shuffled = matched.shuffled()
@@ -108,6 +90,44 @@ struct QuizDataService {
     /// Total matching questions (no shuffle/limit) — used for the count screen.
     func questionCount(units: [String], chapters: [String]) -> Int {
         questions(units: units, chapters: chapters, limit: 0).count
+    }
+
+    /// Looks up a single question by its stable `question_number` column value.
+    /// Used by SRS to re-hydrate a scheduled card's content on demand.
+    func question(number: String) -> Question? {
+        for row in rows {
+            guard row.count > schema.number, row[schema.number].trimmed == number else { continue }
+            if let q = makeQuestion(from: row) { return q }
+        }
+        return nil
+    }
+
+    // MARK: - Row → Question
+
+    private func makeQuestion(from row: [String]) -> Question? {
+        let s = schema
+        let required = max(s.number, s.text, s.choiceA, s.choiceB, s.choiceC, s.choiceD, s.answer)
+        guard row.count > required else { return nil }
+
+        let answer = row[s.answer].trimmed
+        guard !answer.isEmpty else { return nil }
+
+        let unit       = s.unit.flatMap      { row.count > $0 ? row[$0].trimmed : nil } ?? ""
+        let chapter    = s.chapter.flatMap   { row.count > $0 ? row[$0].trimmed : nil } ?? ""
+        let grammarRef = s.grammarRef.flatMap { row.count > $0 ? row[$0].trimmed : nil } ?? ""
+
+        return Question(
+            number:     row[s.number].trimmed,
+            unit:       unit,
+            chapter:    chapter,
+            grammarRef: grammarRef,
+            rawText:    row[s.text].trimmed,
+            choiceA:    row[s.choiceA].trimmed,
+            choiceB:    row[s.choiceB].trimmed,
+            choiceC:    row[s.choiceC].trimmed,
+            choiceD:    row[s.choiceD].trimmed,
+            answer:     answer
+        )
     }
 
     // MARK: - Helpers

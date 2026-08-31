@@ -1,0 +1,166 @@
+question_number,unit_number,chapter_number,question,choice_a,choice_b,choice_c,choice_d,answer
+1,1,1,「朝食（ちょうしょく）」の意味は？,changes daily,breakfast,~entrance/exit,skin/peel,B
+2,1,1,「昼食（ちゅうしょく）」の意味は？,lunch,wrapping paper,amount,shrimp,A
+3,1,1,「夕食（ゆうしょく）」の意味は？,dinner,tray,to peel,skin/peel,A
+4,1,1,「フルーツ」の意味は？,gum,sauce,to manage,fruit,D
+5,1,1,「皮（かわ）」の意味は？,long and narrow,to leave (food),skin/peel,straw,C
+6,1,1,「むく」の意味は？,side dish,bland,to peel,to leave (food),C
+7,1,1,「缶詰（かんづめ）」の意味は？,tray,canned goods,odor/stench,portion(s) for ~ people,B
+8,1,1,「新鮮な（しんせんな）」の意味は？,to peel,long and narrow,to litter,fresh,D
+9,1,1,「冷凍食品（れいとうしょくひん）」の意味は？,odor/stench,to distinguish,frozen food,wine,C
+10,1,1,「冷凍する（れいとう）」の意味は？,~style,wasteful,to freeze,"to swirl, turn",C
+11,1,1,「手作り（てづくり）」の意味は？,to distinguish,handmade,the next day,to be turned over,B
+12,1,1,「区別する（くべつ）」の意味は？,to distinguish,to be mixed,to leave (food),~entrance/exit,A
+13,1,1,「トレー」の意味は？,to eat/drink (honorific),oil,tray,Western,C
+14,1,1,「～人分（にんぶん）」の意味は？,soup,portion(s) for ~ people,heart,~entrance/exit,B
+15,1,1,「量（りょう）」の意味は？,odor/stench,amount,~entrance/exit,dessert,B
+16,1,1,「日替わり（ひがわり）」の意味は？,the next day,reputation,changes daily,"basic, general",C
+17,1,1,「定食（ていしょく）」の意味は？,ice,set meal,long and narrow,"fine, calm",B
+18,1,1,「本日（ほんじつ）」の意味は？,today,label,"tepid, lukewarm",gum,A
+19,1,1,「エビ」の意味は？,to be mixed,to dislike,shrimp,to make a reservation,C
+20,1,1,「フライ」の意味は？,self service,drinking party,fried,to manage,C
+21,1,1,「おかず」の意味は？,salad oil,side dish,couple,"fine, calm",B
+22,1,1,「みそ」の意味は？,to split the bill,canned goods,miso,to distinguish,C
+23,1,1,「汁（しる）」の意味は？,soup,oil,feast,to take the trouble,A
+24,1,2,「お待たせしました」の意味は？,pepper,one side,sorry to keep you waiting,soba (buckwheat noodles),C
+25,1,2,「お待ちどおさま」の意味は？,napkin,nutrition,sorry to have kept you waiting,amount,C
+26,1,2,「～風（ふう）」の意味は？,oil,amount,~style,to be turned over,C
+27,1,2,「ソース」の意味は？,sauce,nutrition,soup,label,A
+28,1,2,「召し上がる（めしあがる）」の意味は？,to burn (be burned),to eat/drink (honorific),made in ~,New Year's party,B
+29,1,2,「お先に（さきに）」の意味は？,after you / before you,side dish,sour,to get drunk,A
+30,1,2,「ご遠慮なく（えんりょなく）」の意味は？,without hesitation,raw,dinner,amount,A
+31,1,2,「焼肉（やきにく）」の意味は？,label,buffet,yakiniku (grilled meat),fresh,C
+32,1,2,「バイキング」の意味は？,to get drunk,buffet,"line, queue",frozen food,B
+33,1,2,「セルフサービス」の意味は？,miso,soup,wine,self service,D
+34,1,2,「ライス」の意味は？,gum,rice,to burn (something),"fine, calm",B
+35,1,2,「スープ」の意味は？,without hesitation,soup,self service,changes daily,B
+36,1,2,「デザート」の意味は？,dessert,without hesitation,straw,wine,A
+37,1,2,「残す（のこす）」の意味は？,to leave (food),fresh,wasteful,New Year's party,A
+38,1,2,「ひっくり返す（ひっくりかえす）」の意味は？,quality,to freeze,to turn over,rich/strong (taste),C
+39,1,2,「ひっくり返る（ひっくりかえる）」の意味は？,set meal,sour,to eat/drink (honorific),to be turned over,D
+40,1,2,「燃える（もえる）」の意味は？,sorry to have kept you waiting,sticky,to burn (be burned),long and narrow,C
+41,1,2,「燃やす（もやす）」の意味は？,dressing,oil,sticky,to burn (something),D
+42,1,2,「氷（こおり）」の意味は？,to make a reservation,to toast,ice,~store,C
+43,1,2,「取り替える（とりかえる）」の意味は？,bland,to take the trouble,to replace,to litter,C
+44,1,3,「濃い（こい）」の意味は？,to mix,sorry to have kept you waiting,rich/strong (taste),udon (thick noodles),C
+45,1,3,「薄い（うすい）」の意味は？,buffet,bland,pepper,dessert,B
+46,1,3,「表面（ひょうめん）」の意味は？,to toast,sour,surface,canned goods,C
+47,1,3,「油（あぶら）」の意味は？,or,sticky,miso,oil,D
+48,1,3,「サラダ油（サラダあぶら）」の意味は？,salad oil,odor/stench,miso,fresh,A
+49,1,3,「のり」の意味は？,main store,to be mixed,to leave (food),seaweed,D
+50,1,3,「匂い/臭い（におい）」の意味は？,odor/stench,to turn over,fried,sorry to have kept you waiting,A
+51,1,3,「匂う/臭う（におう）」の意味は？,to be fragrant/stink,to burn (something),fresh,drinking party,A
+52,1,3,「嫌がる（いやがる）」の意味は？,to dislike,soba (buckwheat noodles),shellfish,domestic product,A
+53,1,3,「平気な（へいきな）」の意味は？,sorry to keep you waiting,"fine, calm",frozen food,basics,B
+54,1,3,「ねばねば」の意味は？,sticky,to dislike,"tepid, lukewarm",changes daily,A
+55,1,3,「腐る（くさる）」の意味は？,"to rot, go bad",year-end party,handmade,sticky,A
+56,1,3,「ドレッシング」の意味は？,Western,to burn (something),dressing,gum,C
+57,1,3,「オイル」の意味は？,set meal,oil,~store,to toast,B
+58,1,3,「酢（す）」の意味は？,to freeze,to split the bill,lunch,vinegar,D
+59,1,3,「混ぜる（まぜる）」の意味は？,to mix,udon (thick noodles),to freeze,to eat/drink (honorific),A
+60,1,3,「混ざる（まざる）」の意味は？,to be mixed,label,frozen food,buffet,A
+61,1,3,「こしょう」の意味は？,production area,oil,pepper,sour,C
+62,1,3,「腹（はら）」の意味は？,"line, queue",Western,stomach,wine,C
+63,1,3,「レバー」の意味は？,today,rice,liver,label,C
+64,1,3,「生（なま）」の意味は？,soup,raw,heart,to leave (food),B
+65,1,3,「それとも」の意味は？,sauce,napkin,or,~entrance/exit,C
+66,1,3,「貝（かい）」の意味は？,shellfish,basics,canned goods,self service,A
+67,1,4,「食欲（しょくよく）」の意味は？,to peel,appetite,dessert,production area,B
+68,1,4,「さっぱり」の意味は？,~entrance/exit,rice,side dish,refreshing,D
+69,1,4,「そば」の意味は？,lunch,soba (buckwheat noodles),amount,to manage,B
+70,1,4,「うどん」の意味は？,skin/peel,sour,udon (thick noodles),production area,C
+71,1,4,「酸っぱい（すっぱい）」の意味は？,sour,dressing,set meal,to peel,A
+72,1,4,「ワイン」の意味は？,wine,surface,napkin,sauce,A
+73,1,4,「管理する（かんり）」の意味は？,reputation,surface,wine,to manage,D
+74,1,4,「ぬるい」の意味は？,side dish,yakiniku (grilled meat),"tepid, lukewarm",quality,C
+75,1,4,「回す（まわす）」の意味は？,wrapping paper,soup,to replace,"to swirl, turn",D
+76,1,4,「カップル」の意味は？,main store,couple,side dish,soup,B
+77,1,4,「ストロー」の意味は？,domestic product,after you / before you,straw,pepper,C
+78,1,4,「片方（かたほう）」の意味は？,one side,"main office, headquarters",to burn (be burned),food,A
+79,1,4,「ハート」の意味は？,heart,farewell party,sorry to have kept you waiting,to dislike,A
+80,1,4,「人前（ひとまえ）」の意味は？,the next day,dessert,bland,in public,D
+81,1,5,「忘年会（ぼうねんかい）」の意味は？,year-end party,amount,fruit,label,A
+82,1,5,「新年会（しんねんかい）」の意味は？,skin/peel,straw,portion(s) for ~ people,New Year's party,D
+83,1,5,「～口（ぐち）」の意味は？,shellfish,~entrance/exit,one side,dressing,B
+84,1,5,「押さえる（おさえる）」の意味は？,to peel,wasteful,self service,to make a reservation,D
+85,1,5,「乾杯する（かんぱい）」の意味は？,oil,dressing,to toast,frozen food,C
+86,1,5,「送別会（そうべつかい）」の意味は？,to toast,basics,farewell party,changes daily,C
+87,1,5,「西洋（せいよう）」の意味は？,farewell party,"fine, calm",ice,Western,D
+88,1,5,「～店（てん）」の意味は？,sour,set meal,sorry to have kept you waiting,~store,D
+89,1,5,「ナプキン」の意味は？,napkin,Western,drinking party,soup,A
+90,1,5,「ごちそう」の意味は？,to be turned over,to leave (food),sauce,feast,D
+91,1,5,「ごちそうする」の意味は？,to be mixed,to treat someone to a meal,Western,oil,B
+92,1,5,「もったいない」の意味は？,wasteful,miso,wrapping paper,"main office, headquarters",A
+93,1,5,「ガム」の意味は？,to distinguish,gum,to split the bill,"line, queue",B
+94,1,5,「栄養（えいよう）」の意味は？,nutrition,~style,after you / before you,long and narrow,A
+95,1,5,「ポイ捨てする（ポイすて）」の意味は？,to litter,heart,pepper,buffet,A
+96,1,5,「包み紙（つつみがみ）」の意味は？,year-end party,sorry to have kept you waiting,"tepid, lukewarm",wrapping paper,D
+97,1,6,「飲み会（のみかい）」の意味は？,to make a reservation,shrimp,drinking party,buffet,C
+98,1,6,「割り勘する（わりかん）」の意味は？,soup,to take the trouble,after you / before you,to split the bill,D
+99,1,6,「酔う（よう）」の意味は？,basics,to mix,to get drunk,changes daily,C
+100,1,6,「翌日（よくじつ）」の意味は？,drinking party,oil,heart,the next day,D
+101,1,6,「評判（ひょうばん）」の意味は？,side dish,quality,wrapping paper,reputation,D
+102,1,6,「本店（ほんてん）」の意味は？,drinking party,buffet,main store,"basic, general",C
+103,1,6,「本社（ほんしゃ）」の意味は？,dessert,yakiniku (grilled meat),year-end party,"main office, headquarters",D
+104,1,6,「わざわざ」の意味は？,soup,yakiniku (grilled meat),to take the trouble,to replace,C
+105,1,6,「細長い（ほそながい）」の意味は？,fried,today,without hesitation,long and narrow,D
+106,1,6,「行列（ぎょうれつ）」の意味は？,to treat someone to a meal,frozen food,to eat/drink (honorific),"line, queue",D
+107,1,6,「食品（しょくひん）」の意味は？,sticky,to be mixed,food,udon (thick noodles),C
+108,1,6,「産地（さんち）」の意味は？,production area,to get drunk,"to swirl, turn",odor/stench,A
+109,1,6,「基本的な（きほんてきな）」の意味は？,stomach,"basic, general",breakfast,surface,B
+110,1,6,「基本（きほん）」の意味は？,to litter,soba (buckwheat noodles),basics,wrapping paper,C
+111,1,6,「国産（こくさん）」の意味は？,domestic product,liver,dressing,soup,A
+112,1,6,「品質（ひんしつ）」の意味は？,Western,farewell party,"main office, headquarters",quality,D
+113,1,6,「～産（さん）」の意味は？,set meal,made in ~,to be mixed,production area,B
+114,1,6,「ラベル」の意味は？,"to rot, go bad",handmade,label,~entrance/exit,C
+115,1,7,「スイーツ」の意味は？,to leave (food),to freeze,"tepid, lukewarm",sweets,D
+116,1,7,「クリーム」の意味は？,cream,to have a refill/seconds,"party, meeting","happy, joy",A
+117,1,7,「幸せな（しあわせな）」の意味は？,noodles,anniversary,wrapping paper,"happy, joy",D
+118,1,7,「売り切れる（うりきれる）」の意味は？,to eat/drink (honorific),buffet,amount,to be sold out,D
+119,1,7,「売り切れ（うりきれ）」の意味は？,ice,dinner,sold out,"mochi, pounded rice cake",C
+120,1,7,「おやつ」の意味は？,oil,drinking party,snack,"to be done, settle",C
+121,1,7,「方（かた）」の意味は？,person (honorific),salad oil,changes daily,to replace,A
+122,1,7,「ランチ」の意味は？,to eat/drink (honorific),wheat,lunch,"mochi, pounded rice cake",C
+123,1,7,「モーニング」の意味は？,to toast,"mochi, pounded rice cake",noodles,breakfast (set),D
+124,1,7,「ディナー」の意味は？,dinner,miso,~entrance/exit,portion(s) for ~ people,A
+125,1,7,「おごる」の意味は？,to treat someone to a meal,shrimp,anniversary,sashimi,A
+126,1,7,「機会（きかい）」の意味は？,handmade,gum,quality,opportunity,D
+127,1,7,「鍋（なべ）」の意味は？,self service,pot,wheat,wasteful,B
+128,1,7,「会（かい）」の意味は？,to eat/drink (honorific),liver,heart,"party, meeting",D
+129,1,7,「餅（もち）」の意味は？,breakfast,to eat/drink (honorific),"mochi, pounded rice cake",to turn over,C
+130,1,7,「蒸す（むす）」の意味は？,Western,lunch,yakiniku (grilled meat),to steam,D
+131,1,7,「あんこ」の意味は？,to get drunk,soup,"anko, sweet bean paste",~store,C
+132,1,7,「くるむ」の意味は？,corn,odor/stench,to take the trouble,to wrap,D
+133,1,7,「炊く（たく）」の意味は？,main store,napkin,to cook (rice),to make a reservation,C
+134,1,8,「ノンアルコール」の意味は？,portion(s) for ~ people,seaweed,non-alcoholic (drink),sukiyaki,C
+135,1,8,「肝臓（かんぞう）」の意味は？,dressing,feast,seaweed,liver,D
+136,1,8,「飲酒する（いんしゅ）」の意味は？,to be sold out,"mochi, pounded rice cake",to drink alcohol,changes daily,C
+137,1,8,「調味料（ちょうみりょう）」の意味は？,seasoning,to be sold out,liver,canned goods,A
+138,1,8,「海水（かいすい）」の意味は？,rice,refreshing,oil,seawater,D
+139,1,8,「舌（した）」の意味は？,to eat/drink (honorific),tongue,raw,lunch,B
+140,1,8,「なめる」の意味は？,drinking party,"basic, general",to lick,to dislike,C
+141,1,8,「塩辛い（しおからい）」の意味は？,salty,drinking party,without hesitation,to toast,A
+142,1,8,「しょっぱい」の意味は？,salty,to be turned over,tongue,lunch,A
+143,1,8,「(お)そうざい」の意味は？,to distinguish,sorry to keep you waiting,soba (buckwheat noodles),deli side dish,D
+144,1,8,「済ませる（すませる）」の意味は？,"to be done, settle",shrimp,seasoning,dinner,A
+145,1,8,「済む（すむ）」の意味は？,powder,vinegar,to finish,dinner,C
+146,1,8,「外食する（がいしょく）」の意味は？,"tepid, lukewarm",salty,sweets,to eat out,D
+147,1,8,「記念日（きねんび）」の意味は？,label,heart,beef bowl,anniversary,D
+148,1,8,「記念する（きねん）」の意味は？,quality,to cook (rice),to commemorate,to have a refill/seconds,C
+149,1,8,「ぜいたくする」の意味は？,powder,to do something luxurious,canned goods,lunch,B
+150,1,8,「全力（ぜんりょく）」の意味は？,"full strength, with all one's might",to be mixed,tempura,to cook (rice),A
+151,1,8,「ぺこぺこな」の意味は？,shellfish,to treat someone to a meal,rich/strong (taste),"empty (stomach), very hungry",D
+152,1,8,「丼（どんぶり）」の意味は？,set meal,~store,to be sold out,bowl,D
+153,1,8,「～杯（はい）」の意味は？,"party, meeting",~ counter for bowls/cups,dessert,without hesitation,B
+154,1,8,「おかわりする」の意味は？,nutrition,~style,sukiyaki,to have a refill/seconds,D
+155,1,9,「小麦（こむぎ）」の意味は？,sashimi,wheat,to make a reservation,in public,B
+156,1,9,「小麦粉（こむぎこ）」の意味は？,one side,wrapping paper,oil,flour,D
+157,1,9,「トウモロコシ」の意味は？,tray,liver,corn,lunch,C
+158,1,9,「粉（こな）」の意味は？,powder,"to rot, go bad",pasta,to burn (be burned),A
+159,1,9,「麺（めん）」の意味は？,the next day,appetite,noodles,"party, meeting",C
+160,1,9,「パスタ」の意味は？,gum,pasta,anniversary,to wrap,B
+161,1,10,「ラーメン」の意味は？,"mochi, pounded rice cake",ramen,heart,to commemorate,B
+162,1,10,「牛丼（ぎゅうどん）」の意味は？,to cook (rice),"anko, sweet bean paste",anniversary,beef bowl,D
+163,1,10,「すきやき」の意味は？,to commemorate,made in ~,beef bowl,sukiyaki,D
+164,1,10,「てんぷら」の意味は？,tempura,"happy, joy",to eat/drink (honorific),tongue,A
+165,1,10,「さしみ」の意味は？,pasta,sashimi,dinner,fried,B

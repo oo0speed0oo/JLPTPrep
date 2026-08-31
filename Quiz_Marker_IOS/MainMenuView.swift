@@ -38,6 +38,26 @@ struct MainMenuView: View {
                         .padding(.vertical, 6)
                 }
 
+                NavigationLink(destination: SRSHubView(path: $path, store: store)) {
+                    HStack {
+                        Label("SRS Review", systemImage: "brain.head.profile")
+                            .font(.title3.bold())
+                            .padding(.vertical, 6)
+
+                        Spacer()
+
+                        if store.dueSRSCount > 0 {
+                            Text("\(store.dueSRSCount)")
+                                .font(.caption.bold())
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 7)
+                                .padding(.vertical, 3)
+                                .background(Color.purple)
+                                .cornerRadius(10)
+                        }
+                    }
+                }
+
                 NavigationLink(destination: NotesListView(store: store)) {
                     HStack {
                         Label("Notes", systemImage: "note.text")
@@ -145,6 +165,18 @@ struct MainMenuView: View {
 
         case .flashcards(let f, let u, let c):
             FlashcardView(file: f, units: u, chapters: c, store: store)
+
+        case .srsFileSelect:
+            SRSFileSelectView(path: $path)
+
+        case .srsUnitSelection(let f):
+            SRSUnitSelectionView(path: $path, file: f)
+
+        case .srsChapterSelection(let f, let u):
+            SRSChapterSelectionView(path: $path, file: f, units: u)
+
+        case .srsAddConfirm(let f, let u, let c):
+            SRSAddConfirmView(path: $path, store: store, file: f, units: u, chapters: c)
         }
     }
 }

@@ -21,6 +21,7 @@ struct QuizView: View {
     @State private var sessionStart: Date = Date()
     @State private var lastAnswerCorrect: Bool? = nil
     @State private var isBookmarked: Bool = false
+    @State private var isInSRS: Bool = false
     @State private var showingNotes: Bool = false
 
     private var quizDisplayName: String {
@@ -134,55 +135,69 @@ struct QuizView: View {
                 .background(Color.secondary.opacity(0.1))
                 .cornerRadius(12)
 
-            HStack(spacing: 20) {
-                Button { showTranslation.toggle() } label: {
-                    Label("Translate", systemImage: "character.book.closed")
-                        .font(.caption.bold())
-                }
-                .translationPresentation(isPresented: $showTranslation, text: q.text)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    Button { showTranslation.toggle() } label: {
+                        Label("Translate", systemImage: "character.book.closed")
+                            .font(.caption.bold())
+                    }
+                    .translationPresentation(isPresented: $showTranslation, text: q.text)
 
-                Button {
-                    UIPasteboard.general.string = q.text
-                    hasCopied = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { hasCopied = false }
-                } label: {
-                    Label(hasCopied ? "Copied!" : "Copy",
-                          systemImage: hasCopied ? "checkmark.circle.fill" : "doc.on.doc")
-                        .font(.caption.bold())
-                        .foregroundColor(hasCopied ? .green : .blue)
-                }
+                    Button {
+                        UIPasteboard.general.string = q.text
+                        hasCopied = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { hasCopied = false }
+                    } label: {
+                        Label(hasCopied ? "Copied!" : "Copy",
+                              systemImage: hasCopied ? "checkmark.circle.fill" : "doc.on.doc")
+                            .font(.caption.bold())
+                            .foregroundColor(hasCopied ? .green : .blue)
+                    }
 
-                Button {
-                    store.toggleBookmark(
-                        quizName:       quizDisplayName,
-                        chapter:        q.chapter,
-                        unit:           q.unit,
-                        questionNumber: q.number,
-                        questionText:   q.text,
-                        choiceA:        q.option(for: "A"),
-                        choiceB:        q.option(for: "B"),
-                        choiceC:        q.option(for: "C"),
-                        choiceD:        q.option(for: "D"),
-                        correctAnswer:  q.answer
-                    )
-                    isBookmarked = store.isBookmarked(questionNumber: q.number, quizName: quizDisplayName)
-                } label: {
-                    Label(isBookmarked ? "Bookmarked" : "Bookmark",
-                          systemImage: isBookmarked ? "bookmark.fill" : "bookmark")
-                        .font(.caption.bold())
-                        .foregroundColor(isBookmarked ? .yellow : .blue)
-                }
+                    Button {
+                        store.toggleBookmark(
+                            quizName:       quizDisplayName,
+                            chapter:        q.chapter,
+                            unit:           q.unit,
+                            questionNumber: q.number,
+                            questionText:   q.text,
+                            choiceA:        q.option(for: "A"),
+                            choiceB:        q.option(for: "B"),
+                            choiceC:        q.option(for: "C"),
+                            choiceD:        q.option(for: "D"),
+                            correctAnswer:  q.answer
+                        )
+                        isBookmarked = store.isBookmarked(questionNumber: q.number, quizName: quizDisplayName)
+                    } label: {
+                        Label(isBookmarked ? "Bookmarked" : "Bookmark",
+                              systemImage: isBookmarked ? "bookmark.fill" : "bookmark")
+                            .font(.caption.bold())
+                            .foregroundColor(isBookmarked ? .yellow : .blue)
+                    }
 
-                Button { showingNotes = true } label: {
-                    Label("Notes", systemImage: "note.text")
-                        .font(.caption.bold())
-                        .foregroundColor(.indigo)
+                    Button {
+                        store.toggleSRS(file: file, questionNumber: q.number, chapter: q.chapter, unit: q.unit)
+                        isInSRS = store.isInSRS(file: file, questionNumber: q.number)
+                    } label: {
+                        Label(isInSRS ? "In SRS Deck" : "Add to SRS",
+                              systemImage: isInSRS ? "brain.fill" : "brain")
+                            .font(.caption.bold())
+                            .foregroundColor(isInSRS ? .purple : .blue)
+                    }
+
+                    Button { showingNotes = true } label: {
+                        Label("Notes", systemImage: "note.text")
+                            .font(.caption.bold())
+                            .foregroundColor(.indigo)
+                    }
                 }
+                .padding(.horizontal, 2)
             }
         }
         .padding(.horizontal)
         .onAppear {
             isBookmarked = store.isBookmarked(questionNumber: q.number, quizName: quizDisplayName)
+            isInSRS      = store.isInSRS(file: file, questionNumber: q.number)
         }
     }
 
@@ -317,6 +332,7 @@ struct QuizView: View {
         translatingChoice = nil
         lastAnswerCorrect = nil
         isBookmarked      = false
+        isInSRS           = false
         manager.nextQuestion()
     }
 

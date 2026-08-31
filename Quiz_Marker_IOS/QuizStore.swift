@@ -90,6 +90,88 @@ struct ChapterAttempt: Codable, Identifiable {
     }
 }
 
+/// Self-graded recall quality, à la Anki/SM-2.
+enum SRSGrade: Int, Codable {
+    case again = 0
+    case hard  = 1
+    case good  = 2
+    case easy  = 3
+}
+
+/// One card's spaced-repetition scheduling state (SM-2 algorithm).
+/// Content isn't duplicated here — `file` + `questionNumber` is the stable key
+/// used to re-fetch the question from its CSV via `QuizDataService`.
+struct SRSCardState: Codable, Identifiable {
+    let id:             UUID
+    let file:           String
+    let questionNumber: String
+    let chapter:        String
+    let unit:           String
+    var interval:       Double   // days until next review
+    var easeFactor:     Double   // SM-2 ease factor, starts at 2.5
+    var repetitions:    Int      // consecutive non-"Again" reviews
+    var dueDate:        Date
+    var lastReviewed:   Date?
+    let addedDate:      Date
+
+    init(file: String, questionNumber: String, chapter: String, unit: String) {
+        self.id             = UUID()
+        self.file           = file
+        self.questionNumber = questionNumber
+        self.chapter        = chapter
+        self.unit           = unit
+        self.interval       = 0
+        self.easeFactor     = 2.5
+        self.repetitions    = 0
+        self.dueDate        = Date()   // new cards are due right away
+        self.lastReviewed   = nil
+        self.addedDate      = Date()
+    }
+
+    /// Applies one SM-2 style scheduling step for `grade`, in place.
+    mutating func schedule(grade: SRSGrade, now: Date = Date()) {
+        switch grade {
+        case .again:
+            repetitions = 0
+            interval    = 10.0 / (24 * 60)   // ~10 minutes — resurfaces later this session
+            easeFactor  = max(1.3, easeFactor - 0.2)
+        case .hard:
+            repetitions += 1
+            interval     = max(1, (interval == 0 ? 1 : interval) * 1.2)
+            easeFactor   = max(1.3, easeFactor - 0.15)
+        case .good:
+            repetitions += 1
+            switch repetitions {
+            case 1:  interval = 1
+            case 2:  interval = 6
+            default: interval = max(1, (interval == 0 ? 1 : interval) * easeFactor)
+            }
+        case .easy:
+            repetitions += 1
+            interval     = repetitions == 1 ? 4 : max(1, (interval == 0 ? 1 : interval) * easeFactor * 1.3)
+            easeFactor  += 0.15
+        }
+        lastReviewed = now
+        dueDate      = now.addingTimeInterval(interval * 86400)
+    }
+
+    /// Human-readable preview of the interval `grade` would produce — shown on grading buttons.
+    func previewInterval(for grade: SRSGrade) -> String {
+        var copy = self
+        copy.schedule(grade: grade)
+        let days = copy.interval
+        if days < 1 {
+            return "\(max(1, Int((days * 24 * 60).rounded())))m"
+        } else if days < 30 {
+            return "\(Int(days.rounded()))d"
+        } else if days < 365 {
+            return "\(Int((days / 30).rounded()))mo"
+        } else {
+            return String(format: "%.1fy", days / 365)
+        }
+    }
+}
+
 // MARK: - Store
 
 @Observable
@@ -101,6 +183,7 @@ class QuizStore {
     private(set) var bookmarks:         [PersistedBookmark]    = []
     private(set) var flashcardProgress: [FlashcardProgress]    = []
     private(set) var notes:             [Note]                 = []
+    private(set) var srsCards:          [SRSCardState]         = []
 
     private let recordsKey            = "quiz_records_v1"
     private let sessionsKey           = "quiz_sessions_v1"
@@ -109,6 +192,7 @@ class QuizStore {
     private let bookmarksKey          = "bookmarks_v1"
     private let flashcardProgressKey  = "flashcard_progress_v1"
     private let notesKey              = "notes_v1"
+    private let srsCardsKey           = "srs_cards_v1"
 
     init() { load() }
 
@@ -264,6 +348,56 @@ class QuizStore {
         persist(notes, key: notesKey)
     }
 
+    // MARK: - SRS (Spaced Repetition)
+
+    func isInSRS(file: String, questionNumber: String) -> Bool {
+        srsCards.contains { $0.file == file && $0.questionNumber == questionNumber }
+    }
+
+    func toggleSRS(file: String, questionNumber: String, chapter: String, unit: String) {
+        if let idx = srsCards.firstIndex(where: { $0.file == file && $0.questionNumber == questionNumber }) {
+            srsCards.remove(at: idx)
+        } else {
+            srsCards.append(SRSCardState(file: file, questionNumber: questionNumber, chapter: chapter, unit: unit))
+        }
+        persist(srsCards, key: srsCardsKey)
+    }
+
+    /// Bulk add — skips questions already enrolled. Returns how many were newly added.
+    @discardableResult
+    func addManyToSRS(_ questions: [Question], file: String) -> Int {
+        var added = 0
+        for q in questions where !isInSRS(file: file, questionNumber: q.number) {
+            srsCards.append(SRSCardState(file: file, questionNumber: q.number, chapter: q.chapter, unit: q.unit))
+            added += 1
+        }
+        if added > 0 { persist(srsCards, key: srsCardsKey) }
+        return added
+    }
+
+    func removeFromSRS(id: UUID) {
+        srsCards.removeAll { $0.id == id }
+        persist(srsCards, key: srsCardsKey)
+    }
+
+    func clearSRS() {
+        srsCards = []
+        persist(srsCards, key: srsCardsKey)
+    }
+
+    /// Cards due for review, earliest first.
+    func dueSRSCards(asOf now: Date = Date()) -> [SRSCardState] {
+        srsCards.filter { $0.dueDate <= now }.sorted { $0.dueDate < $1.dueDate }
+    }
+
+    var dueSRSCount: Int { dueSRSCards().count }
+
+    func gradeSRSCard(id: UUID, grade: SRSGrade) {
+        guard let idx = srsCards.firstIndex(where: { $0.id == id }) else { return }
+        srsCards[idx].schedule(grade: grade)
+        persist(srsCards, key: srsCardsKey)
+    }
+
     // MARK: - Wrong Answers
 
     func saveWrongAnswers(_ mistakes: [WrongAnswer], quizName: String) {
@@ -323,6 +457,7 @@ class QuizStore {
         bookmarks         = decode([PersistedBookmark].self,     key: bookmarksKey)         ?? []
         flashcardProgress = decode([FlashcardProgress].self,     key: flashcardProgressKey) ?? []
         notes             = decode([Note].self,                  key: notesKey)             ?? []
+        srsCards          = decode([SRSCardState].self,          key: srsCardsKey)          ?? []
     }
 
     private func persist<T: Encodable>(_ value: T, key: String) {
