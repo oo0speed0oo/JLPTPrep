@@ -116,12 +116,27 @@ struct SRSChapterSelectionView: View {
     @Binding var path: NavigationPath
     let file: String
     let units: [String]
+    let store: QuizStore
 
     @State private var chapters:         [String]    = []
+    @State private var totalPerChapter:  [String: Int] = [:]
     @State private var selectedChapters: Set<String> = []
     @State private var isLoading = true
 
-    var allSelected: Bool { selectedChapters.count == chapters.count }
+    /// Chapters where every matching question is already in the SRS deck.
+    private func isChapterFullyAdded(_ chapter: String) -> Bool {
+        let total = totalPerChapter[chapter] ?? 0
+        guard total > 0 else { return false }
+        let added = store.srsCards.filter { $0.file == file && $0.chapter == chapter }.count
+        return added >= total
+    }
+
+    private func addedCount(for chapter: String) -> Int {
+        store.srsCards.filter { $0.file == file && $0.chapter == chapter }.count
+    }
+
+    private var selectableChapters: [String] { chapters.filter { !isChapterFullyAdded($0) } }
+    var allSelected: Bool { !selectableChapters.isEmpty && selectedChapters.count == selectableChapters.count }
 
     var body: some View {
         VStack(spacing: 20) {
@@ -133,27 +148,53 @@ struct SRSChapterSelectionView: View {
                 HStack {
                     Spacer()
                     Button(allSelected ? "Deselect All" : "Select All") {
-                        selectedChapters = allSelected ? [] : Set(chapters)
+                        selectedChapters = allSelected ? [] : Set(selectableChapters)
                     }
                     .font(.subheadline)
                     .padding(.horizontal)
+                    .disabled(selectableChapters.isEmpty)
                 }
 
                 List(chapters, id: \.self) { chapter in
+                    let fullyAdded = isChapterFullyAdded(chapter)
+                    let added      = addedCount(for: chapter)
+                    let total      = totalPerChapter[chapter] ?? 0
+
                     Button {
+                        guard !fullyAdded else { return }
                         if selectedChapters.contains(chapter) { selectedChapters.remove(chapter) }
                         else { selectedChapters.insert(chapter) }
                     } label: {
                         HStack {
                             Image(systemName: selectedChapters.contains(chapter)
                                   ? "checkmark.square.fill" : "square")
-                                .foregroundColor(selectedChapters.contains(chapter) ? .purple : .secondary)
+                                .foregroundColor(fullyAdded ? .secondary.opacity(0.3)
+                                                 : (selectedChapters.contains(chapter) ? .purple : .secondary))
                                 .font(.system(size: 20))
-                            Text("Chapter \(chapter)").foregroundColor(.primary)
+                            Text("Chapter \(chapter)")
+                                .foregroundColor(fullyAdded ? .secondary : .primary)
                             Spacer()
+                            if fullyAdded {
+                                Label("Added", systemImage: "checkmark.circle.fill")
+                                    .font(.caption.bold())
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(Color.green)
+                                    .cornerRadius(10)
+                            } else if added > 0 {
+                                Text("\(added) / \(total)")
+                                    .font(.caption.bold())
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(Color.secondary.opacity(0.12))
+                                    .cornerRadius(10)
+                            }
                         }
                     }
                     .buttonStyle(.plain)
+                    .disabled(fullyAdded)
                 }
             }
 
@@ -177,10 +218,13 @@ struct SRSChapterSelectionView: View {
         .navigationTitle("Select Chapters")
         .onAppear {
             DispatchQueue.global(qos: .userInitiated).async {
-                let found = QuizDataService(file: file)?.chapters(inUnits: units) ?? []
+                let service = QuizDataService(file: file)
+                let found   = service?.chapters(inUnits: units) ?? []
+                let counts  = service?.questionCountPerChapter(inUnits: units) ?? [:]
                 DispatchQueue.main.async {
-                    isLoading = false
-                    chapters  = found
+                    isLoading       = false
+                    chapters        = found
+                    totalPerChapter = counts
                 }
             }
         }

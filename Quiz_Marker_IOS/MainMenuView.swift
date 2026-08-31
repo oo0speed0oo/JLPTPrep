@@ -173,7 +173,7 @@ struct MainMenuView: View {
             SRSUnitSelectionView(path: $path, file: f)
 
         case .srsChapterSelection(let f, let u):
-            SRSChapterSelectionView(path: $path, file: f, units: u)
+            SRSChapterSelectionView(path: $path, file: f, units: u, store: store)
 
         case .srsAddConfirm(let f, let u, let c):
             SRSAddConfirmView(path: $path, store: store, file: f, units: u, chapters: c)
