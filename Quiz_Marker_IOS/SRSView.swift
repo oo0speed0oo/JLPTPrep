@@ -32,11 +32,21 @@ struct SRSHubView: View {
                     }
                     .padding(.vertical, 4)
                 }
+
+                if !store.srsCards.isEmpty {
+                    NavigationLink {
+                        SRSReviewView(store: store, startInPracticeMode: true)
+                    } label: {
+                        Label("Practice All Cards", systemImage: "arrow.clockwise")
+                            .font(.subheadline.bold())
+                            .foregroundColor(.purple)
+                    }
+                }
             } footer: {
                 if store.srsCards.isEmpty {
                     Text("Add words or grammar points below to start building your review deck.")
                 } else if store.dueSRSCount == 0 {
-                    Text("All caught up! New reviews unlock as their schedule comes due.")
+                    Text("All caught up! New reviews unlock as their schedule comes due. Or use Practice All Cards anytime — it never affects your schedule.")
                 }
             }
 
@@ -83,6 +93,7 @@ struct SRSHubView: View {
 /// pushes it to a future due date and removes it from the current queue.
 struct SRSReviewView: View {
     let store: QuizStore
+    var startInPracticeMode: Bool = false
 
     @Environment(\.dismiss) private var dismiss
 
@@ -138,11 +149,11 @@ struct SRSReviewView: View {
 
     private func loadQueue() {
         DispatchQueue.global(qos: .userInitiated).async {
-            let due = store.dueSRSCards()
+            let cardsToLoad = startInPracticeMode ? store.srsCards : store.dueSRSCards()
             var services: [String: QuizDataService] = [:]
             var items: [QueueItem] = []
 
-            for card in due {
+            for card in cardsToLoad {
                 let service = services[card.file] ?? QuizDataService(file: card.file)
                 guard let service else { continue }
                 services[card.file] = service
@@ -154,6 +165,9 @@ struct SRSReviewView: View {
                 queue             = items
                 practiceQuestions = items.map { $0.question }
                 isLoading         = false
+                if startInPracticeMode {
+                    isPracticing = true
+                }
             }
         }
     }
