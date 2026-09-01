@@ -1,2 +1,5 @@
 # Source photos for building new study decks — not part of the app
 photo_inbox/
+
+# Practice test content (past exam questions) — kept local only, never committed
+Quiz_Marker_IOS/data/Practice Test*.csv
