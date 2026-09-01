@@ -99,6 +99,13 @@ struct SRSReviewView: View {
     @State private var isLoading      = true
     @State private var reviewedCount  = 0
 
+    // Practice replay — same questions, no effect on SRS scheduling.
+    @State private var isPracticing           = false
+    @State private var practiceQuestions:      [Question] = []
+    @State private var practiceIndex           = 0
+    @State private var practiceShowingAnswer   = false
+    @State private var practiceShowingMeaning  = false
+
     private var current: QueueItem? {
         guard currentIndex < queue.count else { return nil }
         return queue[currentIndex]
@@ -110,6 +117,12 @@ struct SRSReviewView: View {
                 ProgressView("Loading due cards…")
             } else if queue.isEmpty {
                 emptyState
+            } else if isPracticing {
+                if practiceIndex >= practiceQuestions.count {
+                    practiceFinishedView
+                } else {
+                    practiceQuestionView(for: practiceQuestions[practiceIndex])
+                }
             } else if currentIndex >= queue.count {
                 finishedView
             } else if let item = current {
@@ -138,10 +151,26 @@ struct SRSReviewView: View {
             }
 
             DispatchQueue.main.async {
-                queue     = items
-                isLoading = false
+                queue             = items
+                practiceQuestions = items.map { $0.question }
+                isLoading         = false
             }
         }
+    }
+
+    // MARK: - Practice Replay
+
+    private func startPracticeRound() {
+        practiceIndex          = 0
+        practiceShowingAnswer  = false
+        practiceShowingMeaning = false
+        isPracticing           = true
+    }
+
+    private func advancePractice() {
+        practiceShowingAnswer  = false
+        practiceShowingMeaning = false
+        practiceIndex += 1
     }
 
     // MARK: - Empty / Finished
@@ -180,6 +209,19 @@ struct SRSReviewView: View {
             Spacer()
 
             Button {
+                startPracticeRound()
+            } label: {
+                Text("Review Again")
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.purple.opacity(0.12))
+                    .foregroundColor(.purple)
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal)
+
+            Button {
                 dismiss()
             } label: {
                 Text("Done")
@@ -195,6 +237,133 @@ struct SRSReviewView: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
+    }
+
+    private var practiceFinishedView: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            Image(systemName: "arrow.clockwise.circle.fill")
+                .font(.system(size: 60))
+                .foregroundColor(.blue)
+            Text("Practice Complete!")
+                .font(.largeTitle.bold())
+            Text("Your SRS schedule wasn't affected.")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+
+            Spacer()
+
+            Button {
+                startPracticeRound()
+            } label: {
+                Text("Review Again")
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal)
+
+            Button {
+                dismiss()
+            } label: {
+                Text("Done")
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.purple.opacity(0.12))
+                    .foregroundColor(.purple)
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+        }
+        .padding()
+        .navigationBarBackButtonHidden(true)
+    }
+
+    // MARK: - Practice Question View
+
+    @ViewBuilder
+    private func practiceQuestionView(for q: Question) -> some View {
+        ScrollView {
+            VStack(spacing: 14) {
+                HStack {
+                    Text("Practice \(practiceIndex + 1) of \(practiceQuestions.count)")
+                    Spacer()
+                    Label("Not scored", systemImage: "checkmark.shield")
+                }
+                .font(.caption.bold())
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
+
+                questionTextBlock(q)
+
+                if practiceShowingAnswer {
+                    choicesRevealBlock(q)
+                    if !q.meaning.isEmpty {
+                        practiceMeaningBlock(q)
+                    }
+                    Button {
+                        advancePractice()
+                    } label: {
+                        Text(practiceIndex + 1 < practiceQuestions.count ? "Next Card" : "Finish")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.purple)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                } else {
+                    Button {
+                        withAnimation { practiceShowingAnswer = true }
+                    } label: {
+                        Text("Show Answer")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.purple)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .padding(.top, 8)
+            .padding(.bottom, 24)
+        }
+    }
+
+    @ViewBuilder
+    private func practiceMeaningBlock(_ q: Question) -> some View {
+        if practiceShowingMeaning {
+            Text(q.meaning)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.blue.opacity(0.08))
+                .cornerRadius(10)
+                .padding(.horizontal)
+        } else {
+            Button {
+                withAnimation { practiceShowingMeaning = true }
+            } label: {
+                Label("Show Meaning", systemImage: "character.book.closed")
+                    .font(.caption.bold())
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                    .background(Color.blue.opacity(0.12))
+                    .foregroundColor(.blue)
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal)
+        }
     }
 
     // MARK: - Question View
