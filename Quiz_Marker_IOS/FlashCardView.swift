@@ -229,6 +229,7 @@ struct FlashcardView: View {
     @State private var cards:          [Question] = []
     @State private var index           = 0
     @State private var isFlipped       = false
+    @State private var showingMeaning  = false
     @State private var isShuffled      = true
     @State private var isLoading       = true
     @State private var showingComplete = false
@@ -268,6 +269,11 @@ struct FlashcardView: View {
                 Spacer()
                 flashcard(for: card)
                     .padding(.horizontal, 20)
+                if isFlipped && !card.meaning.isEmpty {
+                    meaningBlock(card)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 10)
+                }
                 Spacer()
 
                 // Always show rating buttons — no need to flip first
@@ -433,6 +439,34 @@ struct FlashcardView: View {
             RoundedRectangle(cornerRadius: 24)
                 .stroke(labelColor.opacity(0.18), lineWidth: 1.5)
         )
+    }
+
+    // MARK: - Meaning (on-demand reveal)
+
+    @ViewBuilder
+    private func meaningBlock(_ card: Question) -> some View {
+        if showingMeaning {
+            Text(card.meaning)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.blue.opacity(0.08))
+                .cornerRadius(10)
+        } else {
+            Button {
+                withAnimation { showingMeaning = true }
+            } label: {
+                Label("Show Meaning", systemImage: "character.book.closed")
+                    .font(.caption.bold())
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+                    .background(Color.blue.opacity(0.12))
+                    .foregroundColor(.blue)
+                    .cornerRadius(10)
+            }
+        }
     }
 
     // MARK: - Know / Don't Know Buttons
@@ -657,8 +691,9 @@ struct FlashcardView: View {
     private func advance() {
         withAnimation(.easeInOut(duration: 0.2)) {
             if index + 1 < cards.count {
-                index    += 1
-                isFlipped = false
+                index          += 1
+                isFlipped       = false
+                showingMeaning  = false
             } else {
                 finishDeck()
             }
@@ -688,6 +723,7 @@ struct FlashcardView: View {
         withAnimation(.easeInOut(duration: 0.2)) {
             index          -= 1
             isFlipped       = false
+            showingMeaning  = false
             showingComplete = false
         }
     }
@@ -697,6 +733,7 @@ struct FlashcardView: View {
         stillLearningCards = []
         index              = 0
         isFlipped          = false
+        showingMeaning     = false
         showingSummary     = false
         showingComplete    = false
         if isShuffled { cards = cards.shuffled() }
@@ -709,6 +746,7 @@ struct FlashcardView: View {
         cards              = drill.shuffled()
         index              = 0
         isFlipped          = false
+        showingMeaning     = false
         showingSummary     = false
         showingComplete    = false
     }
