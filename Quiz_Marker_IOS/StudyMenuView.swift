@@ -1,8 +1,5 @@
 import SwiftUI
 
-// Files that exist only for internal app use — never shown to the user.
-private let hiddenFiles: Set<String> = ["grammar_rules.csv", "quiz_scores.csv"]
-
 struct StudyMenuView: View {
     @Binding var path: NavigationPath
     let store: QuizStore
@@ -66,7 +63,7 @@ struct StudyMenuView: View {
         guard let urls = Bundle.main.urls(forResourcesWithExtension: "csv", subdirectory: nil) else { return }
         quizFiles = urls
             .map { $0.lastPathComponent }
-            .filter { !hiddenFiles.contains($0) }
+            .filter { !hiddenQuizFiles.contains($0) && !isPracticeTestFile($0) }
             .sorted()
     }
 

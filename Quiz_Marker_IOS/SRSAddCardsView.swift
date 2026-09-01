@@ -1,7 +1,5 @@
 import SwiftUI
 
-private let srsHiddenFiles: Set<String> = ["grammar_rules.csv", "quiz_scores.csv"]
-
 // MARK: - File Select
 
 struct SRSFileSelectView: View {
@@ -22,7 +20,7 @@ struct SRSFileSelectView: View {
     private func loadFiles() {
         guard let urls = Bundle.main.urls(forResourcesWithExtension: "csv", subdirectory: nil) else { return }
         files = urls.map { $0.lastPathComponent }
-            .filter { !srsHiddenFiles.contains($0) }
+            .filter { !hiddenQuizFiles.contains($0) && !isPracticeTestFile($0) }
             .sorted()
     }
 

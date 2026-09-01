@@ -14,6 +14,12 @@ struct MainMenuView: View {
                         .padding(.vertical, 6)
                 }
 
+                NavigationLink(destination: PracticeTestListView(path: $path)) {
+                    Label("Practice Tests", systemImage: "doc.text.fill")
+                        .font(.title3.bold())
+                        .padding(.vertical, 6)
+                }
+
                 NavigationLink(destination: FlashcardFileSelectView(path: $path, store: store)) {
                     Label("Flashcards", systemImage: "rectangle.stack.fill")
                         .font(.title3.bold())

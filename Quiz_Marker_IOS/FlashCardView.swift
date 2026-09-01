@@ -2,8 +2,6 @@ import SwiftUI
 
 // MARK: - File Select
 
-private let flashcardHiddenFiles: Set<String> = ["grammar_rules.csv", "quiz_scores.csv"]
-
 struct FlashcardFileSelectView: View {
     @Binding var path: NavigationPath
     let store: QuizStore
@@ -23,7 +21,7 @@ struct FlashcardFileSelectView: View {
     private func loadFiles() {
         guard let urls = Bundle.main.urls(forResourcesWithExtension: "csv", subdirectory: nil) else { return }
         files = urls.map { $0.lastPathComponent }
-            .filter { !flashcardHiddenFiles.contains($0) }
+            .filter { !hiddenQuizFiles.contains($0) && !isPracticeTestFile($0) }
             .sorted()
     }
 
